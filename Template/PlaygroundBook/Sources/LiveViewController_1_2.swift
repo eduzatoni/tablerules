@@ -212,11 +212,14 @@ class LiveViewController_1_2: LiveViewController {
                         node.setReflectiveMaterial()
                     } else if node.name == ObjectType.soupSpoon.title {
                         node.setReflectiveMaterial()
-                    }  else if node.name == ObjectType.smallKnife.title {
+                    }  else if node.name == ObjectType.breadKnife.title {
                         node.setReflectiveMaterial()
                     } else if node.name == ObjectType.napkin.title {
                         table.napkin.node = node
+                    } else if node.name == ObjectType.napkin.title {
+                        table.napkin.node = node
                     }
+                    
                 }
             }
             isTableSet = true

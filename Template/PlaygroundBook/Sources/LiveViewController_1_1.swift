@@ -41,7 +41,22 @@ class LiveViewController_1_1: LiveViewController {
         sceneView.autoenablesDefaultLighting = true
         
         //        addButton()
+        sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
         
+    }
+    
+    @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
+        gesture.minimumNumberOfTouches = 1
+        
+        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
+        guard let result: ARHitTestResult = results.first else {
+            return
+        }
+        
+        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
+        
+        let moveTo = SCNAction.move(to: position, duration: 0)
+        table.node.runAction(moveTo)
     }
     
     func setTable(type: TableSetType) {
@@ -59,8 +74,7 @@ class LiveViewController_1_1: LiveViewController {
         print("change node")
         removeNode(node: table.node)
         titleLabel.changeAnimate(text: type.title)
-        createTable(position: planeNode.position, name: type.rawValue)
-        
+        createTable(position: table.node.position, name: type.rawValue)
     }
     
     func removeNode(node: SCNNode) {
@@ -100,7 +114,7 @@ class LiveViewController_1_1: LiveViewController {
                     node.setReflectiveMaterial()
                 } else if node.name == ObjectType.soupSpoon.title {
                     node.setReflectiveMaterial()
-                }  else if node.name == ObjectType.smallKnife.title {
+                }  else if node.name == ObjectType.breadKnife.title {
                     node.setReflectiveMaterial()
                 } else if node.name == ObjectType.napkin.title {
                     
