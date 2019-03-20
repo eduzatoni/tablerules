@@ -65,34 +65,39 @@ class LiveViewController_1_2: LiveViewController {
         //
         guard case .string(let messageData) = message else { return }
         
-        if isTableSet {
-            switch messageData {
-            case CutleryStatus.start.rawValue:
-                setCutleryPosition(status: .start)
-            case CutleryStatus.pause.rawValue:
-                setCutleryPosition(status: .pause)
-            case CutleryStatus.doNotTake.rawValue:
-                setCutleryPosition(status: .doNotTake)
-            case CutleryStatus.mealOver.rawValue:
-                setCutleryPosition(status: .mealOver)
-            case CutleryStatus.mealTasty.rawValue:
-                setCutleryPosition(status: .mealTasty)
-            case CutleryStatus.nextDish.rawValue:
-                setCutleryPosition(status: .nextDish)
-            case CutleryStatus.badService.rawValue:
-                setCutleryPosition(status: .badService)
-            case CutleryStatus.complaintsBook.rawValue:
-                setCutleryPosition(status: .complaintsBook)
-            case CutleryStatus.didNotLike.rawValue:
-                setCutleryPosition(status: .didNotLike)
-            case CutleryStatus.willBeRegularCustomer.rawValue:
-                setCutleryPosition(status: .willBeRegularCustomer)
-            default:
-                titleLabel.text = AlertMessage.tryAgainRule
+        if isPlaneFound {
+            if isTableSet {
+                switch messageData {
+                case CutleryStatus.start.rawValue:
+                    setCutleryPosition(status: .start)
+                case CutleryStatus.pause.rawValue:
+                    setCutleryPosition(status: .pause)
+                case CutleryStatus.doNotTake.rawValue:
+                    setCutleryPosition(status: .doNotTake)
+                case CutleryStatus.mealOver.rawValue:
+                    setCutleryPosition(status: .mealOver)
+                case CutleryStatus.mealTasty.rawValue:
+                    setCutleryPosition(status: .mealTasty)
+                case CutleryStatus.nextDish.rawValue:
+                    setCutleryPosition(status: .nextDish)
+                case CutleryStatus.badService.rawValue:
+                    setCutleryPosition(status: .badService)
+                case CutleryStatus.complaintsBook.rawValue:
+                    setCutleryPosition(status: .complaintsBook)
+                case CutleryStatus.didNotLike.rawValue:
+                    setCutleryPosition(status: .didNotLike)
+                case CutleryStatus.willBeRegularCustomer.rawValue:
+                    setCutleryPosition(status: .willBeRegularCustomer)
+                default:
+                    titleLabel.text = AlertMessage.tryAgainRule
+                }
+            } else {
+                titleLabel.text = AlertMessage.placeTable
             }
         } else {
-            titleLabel.text = AlertMessage.findSurfaceBefore
+            titleLabel.text = AlertMessage.placeTable
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,39 +146,6 @@ class LiveViewController_1_2: LiveViewController {
             animateCutlery(table.breadPlate)
             animateCutlery(table.saladPlate)
             animateCutlery(table.napkin)
-        }
-    }
-    
-    //    func setupDescriptionView() {
-    ////        descriptionView.showAnimate()
-    ////        showLabel(titleLabel)
-    //        titleLabel.fadeTransition(1)
-    //        titleLabel.text = table.title
-    ////        descriptionLabel.fadeTransition(1)
-    ////        descriptionLabel.text = table.description
-    //    }
-    
-    func showLabel(_ view: UILabel) {
-        if view.isHidden {
-            view.alpha = 0.0
-            view.isHidden = false
-            
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                view.alpha = 0.7
-            }) { (isCompleted) in
-            }
-        }
-    }
-    
-    func hideLabel(_ view: UILabel) {
-        if !view.isHidden {
-            view.alpha = 0.7
-            view.isHidden = true
-            
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                view.alpha = 0
-            }) { (isCompleted) in
-            }
         }
     }
     
@@ -249,15 +221,6 @@ class LiveViewController_1_2: LiveViewController {
             }
             isTableSet = true
         }
-        //        else {
-        //            let alertController = UIAlertController(title: "Table Ready", message: "Your table is ready! Do you want to place another one?", preferredStyle: .actionSheet)
-        //            let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-        //                self.isTableSet = false
-        //            }
-        //            let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
-        //            alertController.addAction(yesAction)
-        //            alertController.addAction(noAction)
-        //        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

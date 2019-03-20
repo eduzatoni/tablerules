@@ -54,10 +54,6 @@ class LiveViewController_1_1: LiveViewController {
             titleLabel.changeAnimate(text: tableType.title)
             createTable(position: position, name: name)
         }
-        //        else {
-        //            removeNode(node: tableNode)
-        //            createTable(position: position, name: name)
-        //        }
     }
     
     func changeTable(type: TableSetType) {
@@ -73,17 +69,7 @@ class LiveViewController_1_1: LiveViewController {
         let removeAction = SCNAction.removeFromParentNode()
         removeAction.duration = 1
         node.runAction(removeAction)
-        //        node.removeFromParentNode()
     }
-    
-    //    func changeLabel(text: String) {
-    //        //        descriptionView.showAnimate()
-    //        //        showLabel(titleLabel)
-    //        titleLabel.fadeTransition(1)
-    //        titleLabel.text = text
-    //        //        descriptionLabel.fadeTransition(1)
-    //        //        descriptionLabel.text = table.description
-    //    }
     
     func createTable(position: SCNVector3, name: String) {
         scene = SCNScene(named: "art.scnassets/mealScene.scn")!
@@ -91,7 +77,6 @@ class LiveViewController_1_1: LiveViewController {
         if let node = scene.rootNode.childNode(withName: name, recursively: true) {
             node.position = position
             self.table.node = node
-            //            changeLabel(text: name)
             
             sceneView.scene.rootNode.addChildNode(node)
             self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
@@ -124,18 +109,6 @@ class LiveViewController_1_1: LiveViewController {
             }
         }
         isTableSet = true
-        
-    }
-    
-    // Timing function that has a "bounce in" effect
-    func easeOutElastic(_ t: Float) -> Float {
-        let p: Float = 0.3
-        let poww = Float(pow(2.0, -10.0 * 10))
-        let x = t - p / 4.0
-        let y = 2.0 * Float.pi
-        let sinn = sin(x * y / p)
-        let result = poww * sinn + 1.0
-        return result
     }
     
     func removeTable(node: SCNNode) {
@@ -190,30 +163,27 @@ class LiveViewController_1_1: LiveViewController {
     
     override public func receive(_ message: PlaygroundValue) {
         //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
-        //
         guard case .string(let messageData) = message else { return }
-        
-        if isTableSet {
-            switch messageData {
-            case TableSetType.basic.rawValue:
-                //                setTable(type: .basic)
-                changeTable(type: .basic)
-            case TableSetType.casual.rawValue:
-                //                setTable(type: .casual)
-                changeTable(type: .casual)
-            case TableSetType.formal.rawValue:
-                //                setTable(type: .formal)
-                changeTable(type: .formal)
-            default:
-                //                changeLabel(text: "Invalid command. Try again with one of the table formats on the book.")
-                //                titleLabel.text =
-                titleLabel.changeAnimate(text: AlertMessage.tryAgainTable)
+        if isplaneFound {
+            if isTableSet {
+                switch messageData {
+                case TableSetType.basic.rawValue:
+                    changeTable(type: .basic)
+                case TableSetType.casual.rawValue:
+                    changeTable(type: .casual)
+                case TableSetType.formal.rawValue:
+                    changeTable(type: .formal)
+                default:
+                    titleLabel.changeAnimate(text: AlertMessage.tryAgainTable)
+                }
+            } else {
+                titleLabel.changeAnimate(text: AlertMessage.placeTable)
             }
         } else {
-            //            changeLabel(text: "Invalid command. Try again with one of the table formats on the book.")
-            titleLabel.changeAnimate(text: AlertMessage.tryAgainTable)
-            //            titleLabel.text = "Find a surface to place your table first!"
+            titleLabel.changeAnimate(text: AlertMessage.findSurface)
         }
+        
+        
     }
 }
 
@@ -248,8 +218,6 @@ extension LiveViewController_1_1: ARSCNViewDelegate {
                 planeNode.geometry = plane
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
-                //                titleLabel.text = "Surface found! Now tap on it to place your table!"
-                //                changeLabel(text: "Surface found! Now tap on it to place your table!")
                 titleLabel.changeAnimate(text: AlertMessage.surfaceFound)
                 isplaneFound = true
             }

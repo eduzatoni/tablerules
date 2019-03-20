@@ -84,33 +84,34 @@ struct CutleryPosition {
 
 struct CutleryString {
     static let startTitle = "Let the dinner begin!"
-    static let startDescription = "That is how your meal starts. Always use the utensils on the outside first and working your way inward. Same applies for starters. Spoon on the right means there will be soup. If there are more than 2 glass on the table it means it will be served both red and white wine. In many cases, the cutlery for the dessert comes with it later."
+    static let startDescription = "Here are the first basic rules to avoid embarrassing moments and enjoy your dinner night to the fullest! Always use the utensils on the outside first and work your way inward. Same applies for the starters. Spoon on the right means there will be a soup course. If there are more than two glasses on the table it means it will be served both, red and white wine. In many cases, the cutlery for the dessert comes with it later."
     static let pauseTitle = "I need a break!"
     static let pauseDescription = "You are taking a break during your lunch or dinner. Place your fork and knife in the center of the place forming an inverted 'V'."
     static let doNotTakeTitle = "Do not take the plate!"
-    static let doNotTakeDescription = "You want to inform the waiter to keep your plate on the table."
+    static let doNotTakeDescription = "Like this you inform the waiter to keep your plate on the table."
     static let mealOverTitle = "I'm done!"
     static let mealOverDescription = "Place your knife and fork together in the center of the plate pointing to your front to indicate that you have finished."
     static let mealTastyTitle = "The meal was delicious!"
-    static let mealTastyDescription = "In case you have finished your meal and you want to show that it was excellent you can place your knife and fork pointing to the right."
+    static let mealTastyDescription = "In case you have finished your meal and you want to show that it was excellent you place your knife and fork pointing to the right."
     static let nextDishTitle = "I am ready for the next dish!"
-    static let nextDishDescription = "In a meal you many course, place your knife and fork in a cross on the plate with a fork pouting to the front and the knife pointing to the left."
+    static let nextDishDescription = "In a meal with many courses, place your knife and fork in a cross on the plate with a fork pouting to the front and the knife pointing to the left."
     static let badServiceTitle = "The service was bad!"
     static let badServiceDescription = "Let the waiter know that you did not like the service placing your knife and fork forming a 'V'."
     static let complaintsBookTitle = "I would like to complain!"
     static let complaintsBookDescription = "After a bad service or unsatisfactory meal you can ask for the complaints book. Place you fork and knife in the center of the table pointing to you."
     static let didNotLikeTitle = "The dish was horrible!"
-    static let didNotLikeDescription = "To show them you did not like the dish you can place you fork and knife in the center of the table pointing to you."
+    static let didNotLikeDescription = "After a bad service or unsatisfactory meal, you can ask for the complaints book. Place your fork and knife in the center of the plate pointing to you."
     static let willBeRegularCustomerTitle = "I loved it! I definitely will come back!"
-    static let willBeRegularCustomerDescription = "Otherwise if you really enjoy the service and food and want to say you will return more times you can place you fork over (above) you knife on your left side pointing to you (angled) in diagonal."
+    static let willBeRegularCustomerDescription = "You really enjoy the service and food and want to say you will return more times? Place you fork above your knife on your right side pointing to your front in diagonal."
 }
 
 struct AlertMessage {
-    static let findSurface = "Find a surface to place your table!"
-    static let tryAgainTable = "Invalid command. Try again with one of the table formats on the book."
-    static let surfaceFound = "Surface found! Now tap on it to place your table!"
-    static let tryAgainRule = "Invalid command. Try again with one of the rules on the book."
-    static let findSurfaceBefore = "Find a surface to place your table first!"
+    static let findSurface = "Find a surface!"
+    static let surfaceFound = "Now tap on it to place your table!"
+    static let placeTable = "First place your table."
+    static let tryAgainTable = "Try again with one of the table formats on the book."
+    static let tryAgainRule = "Try again with one of the rules on the book."
+    static let findSurfaceBefore = "Place your table first!"
 }
 
 func deg2rad(_ number: Double) -> Double {
