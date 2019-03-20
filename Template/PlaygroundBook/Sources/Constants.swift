@@ -112,6 +112,7 @@ struct AlertMessage {
     static let tryAgainTable = "Try again with one of the table formats on the book."
     static let tryAgainRule = "Try again with one of the rules on the book."
     static let findSurfaceBefore = "Place your table first!"
+    static let pressObject = "Press on the objects to listen to their utility"
 }
 
 func deg2rad(_ number: Double) -> Double {

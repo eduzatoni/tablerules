@@ -29,10 +29,9 @@ class LiveViewController_1_1: LiveViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         table = Table()
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
-        
         tableType = .basic
         
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         sceneView.delegate = self
         titleLabel.backgroundColor = .lightGray
         descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
@@ -182,8 +181,6 @@ class LiveViewController_1_1: LiveViewController {
         } else {
             titleLabel.changeAnimate(text: AlertMessage.findSurface)
         }
-        
-        
     }
 }
 

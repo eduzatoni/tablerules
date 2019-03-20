@@ -65,7 +65,11 @@ import PlaygroundSupport
 //Use the call below to send a message with an object to the LiveView of this page. Import Foundation is required.
 //sendValue(.data(try NSKeyedArchiver.archivedData(withRootObject: /*YourObject*/, requiringSecureCoding: true)))
 func setRule(_ type: CutleryStatus) {
-    sendValue(.string(type.rawValue))
+    if type is CutleryStatus {
+        sendValue(.string(type.rawValue))
+    } else {
+        PlaygroundPage.current.assessmentStatus = .pass(message: "MESSAGE.")
+    }
 }
 //#-end-hidden-code
 //Choose the cutlery rule calling the function.

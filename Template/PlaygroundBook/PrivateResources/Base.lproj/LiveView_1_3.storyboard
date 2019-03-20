@@ -18,20 +18,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LiveView_1_3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6a-7e-CMz">
-                                <rect key="frame" x="139.5" y="323" width="96" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gr-gP-RYF">
+                                <rect key="frame" x="20" y="40" width="335" height="587"/>
+                            </arscnView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOc-rI-aGa">
+                                <rect key="frame" x="27.5" y="85" width="320" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFF-Un-uQn">
+                                        <rect key="frame" x="20" y="0.0" width="280" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="gCF-Ma-fWp"/>
+                                            <constraint firstAttribute="height" constant="80" id="hEL-xQ-abK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="NnP-fq-d7J"/>
+                                    <constraint firstItem="LFF-Un-uQn" firstAttribute="centerY" secondItem="iOc-rI-aGa" secondAttribute="centerY" id="UQW-bJ-Mvw"/>
+                                    <constraint firstItem="LFF-Un-uQn" firstAttribute="centerX" secondItem="iOc-rI-aGa" secondAttribute="centerX" id="olj-Sv-DUI"/>
+                                    <constraint firstAttribute="height" constant="80" id="xpw-7b-kyN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="h6a-7e-CMz" firstAttribute="centerX" secondItem="Rh2-0a-zph" secondAttribute="centerX" id="DgE-dK-YaV"/>
-                            <constraint firstItem="h6a-7e-CMz" firstAttribute="centerY" secondItem="Rh2-0a-zph" secondAttribute="centerY" id="rsb-9d-7m1"/>
+                            <constraint firstItem="6gr-gP-RYF" firstAttribute="leading" secondItem="qaR-nP-dw0" secondAttribute="leading" constant="20" id="6Zs-eP-91H"/>
+                            <constraint firstItem="6gr-gP-RYF" firstAttribute="top" secondItem="qaR-nP-dw0" secondAttribute="top" constant="20" id="E5m-Ya-kmY"/>
+                            <constraint firstItem="qaR-nP-dw0" firstAttribute="trailing" secondItem="6gr-gP-RYF" secondAttribute="trailing" constant="20" id="LiV-Qi-Gb8"/>
+                            <constraint firstItem="iOc-rI-aGa" firstAttribute="top" secondItem="qaR-nP-dw0" secondAttribute="top" constant="65" id="StB-oe-Xmd"/>
+                            <constraint firstItem="qaR-nP-dw0" firstAttribute="bottom" secondItem="6gr-gP-RYF" secondAttribute="bottom" constant="40" id="Yxg-7C-fAH"/>
+                            <constraint firstItem="iOc-rI-aGa" firstAttribute="centerX" secondItem="Rh2-0a-zph" secondAttribute="centerX" id="mZi-xU-g3p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qaR-nP-dw0"/>
                     </view>
+                    <connections>
+                        <outlet property="descriptionView" destination="iOc-rI-aGa" id="4Zi-GE-pDS"/>
+                        <outlet property="sceneView" destination="6gr-gP-RYF" id="HFk-kE-GBX"/>
+                        <outlet property="titleLabel" destination="LFF-Un-uQn" id="mYH-VL-GkX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvi-wC-fap" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
