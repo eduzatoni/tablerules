@@ -329,4 +329,12 @@ public enum TableSetType: String {
     case basic = "basic"
     case casual = "casual"
     case formal = "formal"
+    
+    var title: String {
+        switch self {
+        case .basic: return "Basic"
+        case .casual: return "Casual"
+        case .formal: return "Formal"
+        }
+    }
 }

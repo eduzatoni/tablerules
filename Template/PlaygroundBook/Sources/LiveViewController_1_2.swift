@@ -17,6 +17,8 @@ class LiveViewController_1_2: LiveViewController {
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
+    var tableType: TableSetType!
+    
     var tablePosition = SCNVector3()
     var table = Table()
     var scene: SCNScene!
@@ -28,6 +30,8 @@ class LiveViewController_1_2: LiveViewController {
         super.viewDidLoad()
         table = Table()
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+        
+        tableType = .basic
         
         sceneView.delegate = self
         titleLabel.backgroundColor = .lightGray
@@ -47,6 +51,7 @@ class LiveViewController_1_2: LiveViewController {
     
     func setScene(position: SCNVector3, name: String) {
         if !isTableSet {
+            titleLabel.changeAnimate(text: tableType.title)
             createTable(position: position, name: name)
         }
 //        else {
@@ -58,6 +63,7 @@ class LiveViewController_1_2: LiveViewController {
     func changeTable(type: TableSetType) {
         print("change node")
         removeNode(node: table.node)
+        titleLabel.changeAnimate(text: type.title)
         createTable(position: planePosition, name: type.rawValue)
         
     }
@@ -86,7 +92,7 @@ class LiveViewController_1_2: LiveViewController {
             node.position = position
             self.table.node = node
 //            changeLabel(text: name)
-            titleLabel.changeAnimate(text: name)
+            
             sceneView.scene.rootNode.addChildNode(node)
             self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
                 if node.name == ObjectType.fork.title {
