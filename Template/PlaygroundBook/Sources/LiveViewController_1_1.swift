@@ -22,9 +22,9 @@ class LiveViewController_1_1: LiveViewController {
     var tablePosition = SCNVector3()
     var table = Table()
     var scene: SCNScene!
-    var isplaneFound = false
+    var isPlaneFound = false
     var isTableSet = false
-    var planePosition: SCNVector3 = SCNVector3(0, -0.5, -0.7)
+    let planeNode = SCNNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class LiveViewController_1_1: LiveViewController {
     }
     
     func setTable(type: TableSetType) {
-        setScene(position: planePosition, name: type.rawValue)
+        setScene(position: planeNode.position, name: type.rawValue)
     }
     
     func setScene(position: SCNVector3, name: String) {
@@ -59,7 +59,7 @@ class LiveViewController_1_1: LiveViewController {
         print("change node")
         removeNode(node: table.node)
         titleLabel.changeAnimate(text: type.title)
-        createTable(position: planePosition, name: type.rawValue)
+        createTable(position: planeNode.position, name: type.rawValue)
         
     }
     
@@ -154,7 +154,6 @@ class LiveViewController_1_1: LiveViewController {
             
             if let hitResult = results.first {
                 let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-                planePosition = position
                 setScene(position: position, name: TableSetType.basic.rawValue)
             }
         }
@@ -163,7 +162,7 @@ class LiveViewController_1_1: LiveViewController {
     override public func receive(_ message: PlaygroundValue) {
         //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
         guard case .string(let messageData) = message else { return }
-        if isplaneFound {
+        if isPlaneFound {
             if isTableSet {
                 switch messageData {
                 case TableSetType.basic.rawValue:
@@ -200,14 +199,23 @@ extension LiveViewController_1_1: ARSCNViewDelegate {
         print("sessionInterruptionEnded")
     }
     
+    
+    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {
-            let planeAnchor = anchor as! ARPlaneAnchor
-            if !isplaneFound && !isTableSet {
+            
+            if !isTableSet {
+                let planeAnchor = anchor as! ARPlaneAnchor
+                
+                if isPlaneFound {
+                    print("Remove plane")
+                    planeNode.removeFromParentNode()
+                    isPlaneFound = false
+                }
+                print("add plane")
                 let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-                let planeNode = SCNNode()
+                
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
-                planePosition = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
                 planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
                 let gridMaterial = SCNMaterial()
                 gridMaterial.diffuse.contents = UIColor.red
@@ -216,8 +224,12 @@ extension LiveViewController_1_1: ARSCNViewDelegate {
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
                 titleLabel.changeAnimate(text: AlertMessage.surfaceFound)
-                isplaneFound = true
+                isPlaneFound = true
             }
+            
+//            if !isplaneFound && !isTableSet {
+//
+//            }
         } else {
             return
         }

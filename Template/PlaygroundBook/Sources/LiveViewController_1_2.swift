@@ -23,7 +23,7 @@ class LiveViewController_1_2: LiveViewController {
     var isTableSet = false
     var tableType: TableSetType!
     var cutleryStatus: CutleryStatus!
-    
+    let planeNode = SCNNode()
     var dataArray: [CutleryStatus]  = []
     
     var table: Table!
@@ -300,10 +300,17 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {
-            let planeAnchor = anchor as! ARPlaneAnchor
-            if !isPlaneFound {
+            if !isTableSet {
+                let planeAnchor = anchor as! ARPlaneAnchor
+                
+                if isPlaneFound {
+                    print("Remove plane")
+                    planeNode.removeFromParentNode()
+                    isPlaneFound = false
+                }
+                print("add plane")
                 let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-                let planeNode = SCNNode()
+                
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
                 planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
                 let gridMaterial = SCNMaterial()
@@ -312,9 +319,13 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
                 planeNode.geometry = plane
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
-                titleLabel.text = AlertMessage.surfaceFound
+                titleLabel.changeAnimate(text: AlertMessage.surfaceFound)
                 isPlaneFound = true
             }
+            
+            //            if !isplaneFound && !isTableSet {
+            //
+            //            }
         } else {
             return
         }
