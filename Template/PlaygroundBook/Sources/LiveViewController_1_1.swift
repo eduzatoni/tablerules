@@ -45,18 +45,29 @@ class LiveViewController_1_1: LiveViewController {
         
     }
     
+    var currentAngleY: Float = 0.0
+    
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
-        gesture.minimumNumberOfTouches = 1
         
-        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
-        guard let result: ARHitTestResult = results.first else {
-            return
-        }
         
-        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
+        let translation = gesture.translation(in: gesture.view!)
+        var newAngleY = (Float)(translation.x)*(Float)(Double.pi)/180.0
+        newAngleY += currentAngleY
         
-        let moveTo = SCNAction.move(to: position, duration: 0)
-        table.node.runAction(moveTo)
+        table.node.eulerAngles.y = newAngleY
+        
+        if(gesture.state == .ended) { currentAngleY = newAngleY }
+//        gesture.minimumNumberOfTouches = 1
+//
+//        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
+//        guard let result: ARHitTestResult = results.first else {
+//            return
+//        }
+//
+//        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
+//
+//        let moveTo = SCNAction.move(to: position, duration: 0)
+//        table.node.runAction(moveTo)
     }
     
     func setTable(type: TableSetType) {
@@ -89,6 +100,7 @@ class LiveViewController_1_1: LiveViewController {
         
         if let node = scene.rootNode.childNode(withName: name, recursively: true) {
             node.position = position
+            node.eulerAngles = table.node.eulerAngles
             self.table.node = node
             
             sceneView.scene.rootNode.addChildNode(node)
@@ -164,13 +176,36 @@ class LiveViewController_1_1: LiveViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: sceneView)
-            let results = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
-            
-            if let hitResult = results.first {
-                let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-                setScene(position: position, name: TableSetType.basic.rawValue)
+            if isTableSet {
+                let hitTest = sceneView.hitTest(touchLocation, options: nil)
+                if !hitTest.isEmpty {
+                    guard let result = hitTest.first else {return}
+                    guard let name = result.node.name else {return}
+                    if name == "Extrude" {
+                        performeSpeech(text: "Napkin")
+                    } else {
+                        performeSpeech(text: name)
+                    }
+                }
+            } else {
+                let results = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+                
+                if let hitResult = results.first {
+                    let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
+                    setScene(position: position, name: tableType.rawValue)
+                }
             }
         }
+    }
+    
+    func performeSpeech(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.rate = 0.4
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
+        print("Text: \(text)")
     }
     
     override public func receive(_ message: PlaygroundValue) {

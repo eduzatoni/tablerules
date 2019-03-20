@@ -6,7 +6,7 @@
 //setRule(.start)
 
  **I need a break:** You are taking a break during your lunch or dinner. Place your fork and knife in the center of the place forming an inverted 'V'.*/
-//setRule(.doNotTake)
+//setRule(.pause)
 /*:
  **Do not take the plate:** Like this you inform the waiter to keep your plate on the table.
  */
@@ -55,6 +55,7 @@ func setRule(_ type: CutleryStatus) {
 }
 //#-end-hidden-code
 //Choose the cutlery rule calling the function.
+//setRule(.start || .pause || .doNotTake)
 setRule(/*#-editable-code*/.start/*#-end-editable-code*/)
 //: [**Previous Page**](@previous)
 

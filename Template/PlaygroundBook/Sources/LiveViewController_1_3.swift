@@ -47,40 +47,6 @@ class LiveViewController_1_3: LiveViewController {
     public override func receive(_ message: PlaygroundValue) {
         //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
         //
-        guard case .string(let messageData) = message else { return }
-        
-        if isPlaneFound {
-            if isTableSet {
-                switch messageData {
-                case CutleryStatus.start.rawValue:
-                    setCutleryPosition(status: .start)
-                case CutleryStatus.pause.rawValue:
-                    setCutleryPosition(status: .pause)
-                case CutleryStatus.doNotTake.rawValue:
-                    setCutleryPosition(status: .doNotTake)
-                case CutleryStatus.mealOver.rawValue:
-                    setCutleryPosition(status: .mealOver)
-                case CutleryStatus.mealTasty.rawValue:
-                    setCutleryPosition(status: .mealTasty)
-                case CutleryStatus.nextDish.rawValue:
-                    setCutleryPosition(status: .nextDish)
-                case CutleryStatus.badService.rawValue:
-                    setCutleryPosition(status: .badService)
-                case CutleryStatus.complaintsBook.rawValue:
-                    setCutleryPosition(status: .complaintsBook)
-                case CutleryStatus.didNotLike.rawValue:
-                    setCutleryPosition(status: .didNotLike)
-                case CutleryStatus.willBeRegularCustomer.rawValue:
-                    setCutleryPosition(status: .willBeRegularCustomer)
-                default:
-                    titleLabel.text = AlertMessage.tryAgainRule
-                }
-            } else {
-                titleLabel.text = AlertMessage.placeTable
-            }
-        } else {
-            titleLabel.text = AlertMessage.placeTable
-        }
         
     }
     
@@ -114,34 +80,6 @@ class LiveViewController_1_3: LiveViewController {
     
     @objc func buttonAction(sender: UIButton!) {
         
-    }
-    
-    func setCutleryPosition(status: CutleryStatus) {
-        if table.status != status {
-            table.status = status
-            titleLabel.changeAnimate(text: status.title)
-            animateCutlery(table.fork)
-            animateCutlery(table.knife)
-            animateCutlery(table.breadPlate)
-            animateCutlery(table.saladPlate)
-            animateCutlery(table.napkin)
-        }
-    }
-    
-    func animateCutlery(_ cutlery: Object) {
-        guard let newPosition = cutlery.position else {return}
-        guard let newRotation = cutlery.rotation else {return}
-        guard let node = cutlery.node else {return}
-        
-        let moveUp = SCNAction.move(by: SCNVector3(x: 0, y: 0.6, z: 0), duration: 0.5)
-        
-        node.runAction(moveUp) {
-            let moveTo = SCNAction.move(to: newPosition, duration: 1)
-            let rotateTo = SCNAction.rotateTo(x: CGFloat(newRotation.x), y: CGFloat(newRotation.y), z: CGFloat(newRotation.z), duration: 1)
-            
-            node.runAction(moveTo)
-            node.runAction(rotateTo)
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -219,7 +157,6 @@ class LiveViewController_1_3: LiveViewController {
                     setScene(position: position, name: tableType.rawValue)
                 }
             }
-            
         }
     }
 
