@@ -56,9 +56,7 @@ extension UIView {
         layer.shadowOpacity = 0.2
         layer.cornerRadius = 20
     }
-}
-
-extension UIView {
+    
     func showAnimate(){
         if isHidden {
             alpha = 0.0
@@ -81,5 +79,12 @@ extension UIView {
             }) { (isCompleted) in
             }
         }
+    }
+}
+
+extension UILabel {
+    func changeAnimate(text: String) {
+        self.fadeTransition(1)
+        self.text = text
     }
 }

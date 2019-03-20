@@ -15,6 +15,7 @@ import AVFoundation
 class LiveViewController_1_2: LiveViewController {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var tablePosition = SCNVector3()
     var table = Table()
@@ -29,6 +30,7 @@ class LiveViewController_1_2: LiveViewController {
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
         sceneView.delegate = self
+        titleLabel.backgroundColor = .lightGray
         descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
         // Show statistics such as fps and timing information
 //        sceneView.showsStatistics = true
@@ -68,12 +70,23 @@ class LiveViewController_1_2: LiveViewController {
 //        node.removeFromParentNode()
     }
     
+//    func changeLabel(text: String) {
+//        //        descriptionView.showAnimate()
+//        //        showLabel(titleLabel)
+//        titleLabel.fadeTransition(1)
+//        titleLabel.text = text
+//        //        descriptionLabel.fadeTransition(1)
+//        //        descriptionLabel.text = table.description
+//    }
+    
     func createTable(position: SCNVector3, name: String) {
         scene = SCNScene(named: "art.scnassets/mealScene.scn")!
         
         if let node = scene.rootNode.childNode(withName: name, recursively: true) {
             node.position = position
             self.table.node = node
+//            changeLabel(text: name)
+            titleLabel.changeAnimate(text: name)
             sceneView.scene.rootNode.addChildNode(node)
             self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
                 if node.name == ObjectType.fork.title {
@@ -129,7 +142,7 @@ class LiveViewController_1_2: LiveViewController {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-        
+        titleLabel.text = "Find a surface to place your table!"
         
         // Run the view's session
         sceneView.session.run(configuration)
@@ -186,10 +199,14 @@ class LiveViewController_1_2: LiveViewController {
 //                setTable(type: .formal)
                 changeTable(type: .formal)
             default:
-                print("===============")
+//                changeLabel(text: "Invalid command. Try again with one of the table formats on the book.")
+//                titleLabel.text =
+                titleLabel.changeAnimate(text: "Invalid command. Try again with one of the table formats on the book.")
             }
         } else {
-//            ALERT============================
+//            changeLabel(text: "Invalid command. Try again with one of the table formats on the book.")
+            titleLabel.changeAnimate(text: "Invalid command. Try again with one of the table formats on the book.")
+//            titleLabel.text = "Find a surface to place your table first!"
         }
     }
 }
@@ -225,6 +242,9 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
                 planeNode.geometry = plane
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
+//                titleLabel.text = "Surface found! Now tap on it to place your table!"
+//                changeLabel(text: "Surface found! Now tap on it to place your table!")
+                titleLabel.changeAnimate(text: "Surface found! Now tap on it to place your table!")
                 isplaneFound = true
             }
         } else {

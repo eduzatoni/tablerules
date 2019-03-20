@@ -92,8 +92,6 @@ class LiveViewController_1_1: LiveViewController {
             }
         } else {
             titleLabel.text = "Find a surface to place your table first!"
-//            descriptionView.alpha = 0.2
-//            UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.descriptionView.alpha = 1.0}, completion: nil)
         }
     }
     
@@ -107,7 +105,7 @@ class LiveViewController_1_1: LiveViewController {
         collectionView.isHidden = true
         collectionView.backgroundView?.alpha = 0.6
         collectionView.isPagingEnabled = false
-        
+        titleLabel.backgroundColor = .lightGray
         descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
         
         titleLabel.text = "Find a surface to place your table!"
@@ -137,7 +135,7 @@ class LiveViewController_1_1: LiveViewController {
     func setCutleryPosition(status: CutleryStatus) {
         if table.status != status {
             table.status = status
-            setupDescriptionView()
+            titleLabel.changeAnimate(text: status.title)
             animateCutlery(table.fork)
             animateCutlery(table.knife)
             animateCutlery(table.breadPlate)
@@ -146,14 +144,14 @@ class LiveViewController_1_1: LiveViewController {
         }
     }
     
-    func setupDescriptionView() {
-        descriptionView.showAnimate()
-        showLabel(titleLabel)
-        titleLabel.fadeTransition(1)
-        titleLabel.text = table.title
-//        descriptionLabel.fadeTransition(1)
-//        descriptionLabel.text = table.description
-    }
+//    func setupDescriptionView() {
+////        descriptionView.showAnimate()
+////        showLabel(titleLabel)
+//        titleLabel.fadeTransition(1)
+//        titleLabel.text = table.title
+////        descriptionLabel.fadeTransition(1)
+////        descriptionLabel.text = table.description
+//    }
     
     func showLabel(_ view: UILabel) {
         if view.isHidden {
@@ -211,8 +209,8 @@ class LiveViewController_1_1: LiveViewController {
                 table = Table()
                 table.position = position
 //                collectionView.showAnimate()
-                showLabel(titleLabel)
-                setupDescriptionView()
+//                showLabel(titleLabel)
+                titleLabel.changeAnimate(text: cutleryStatus.title)
                 sceneView.scene.rootNode.addChildNode(plateNode)
                 self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
                     if node.name == ObjectType.fork.title {
