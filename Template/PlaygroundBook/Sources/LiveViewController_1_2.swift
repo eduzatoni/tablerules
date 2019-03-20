@@ -13,133 +13,86 @@ import ARKit
 import AVFoundation
 
 class LiveViewController_1_2: LiveViewController {
-    @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet weak var descriptionView: UIView!
+    
+    @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    var tableType: TableSetType!
-    
-    var tablePosition = SCNVector3()
-    var table = Table()
-    var scene: SCNScene!
-    var isplaneFound = false
+    var isPlaneFound = false
     var isTableSet = false
-    var planePosition: SCNVector3 = SCNVector3(0, -0.5, -0.7)
+    var tableType: TableSetType!
+    var cutleryStatus: CutleryStatus!
+    
+    var dataArray: [CutleryStatus]  = []
+    
+    var table: Table!
+    
+    var scene: SCNScene!
+    var fork: SCNNode = SCNNode()
+    var knife: SCNNode = SCNNode()
+    var plate: SCNNode = SCNNode()
+    var mainScene: SCNNode = SCNNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        table = Table()
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
         tableType = .basic
+        cutleryStatus = .start
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        dataArray = [.start, .pause, .doNotTake, .mealOver, .mealTasty, .nextDish, .badService, .complaintsBook, .didNotLike, .willBeRegularCustomer]
+        
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
         sceneView.delegate = self
-        titleLabel.backgroundColor = .lightGray
-        descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
+        
         // Show statistics such as fps and timing information
-//        sceneView.showsStatistics = true
+        //        sceneView.showsStatistics = true
         //        sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
         
-//        addButton()
+        //        addButton()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func setTable(type: TableSetType) {
-        setScene(position: planePosition, name: type.rawValue)
-    }
-    
-    func setScene(position: SCNVector3, name: String) {
-        if !isTableSet {
-            titleLabel.changeAnimate(text: tableType.title)
-            createTable(position: position, name: name)
-        }
-//        else {
-//            removeNode(node: tableNode)
-//            createTable(position: position, name: name)
-//        }
-    }
-    
-    func changeTable(type: TableSetType) {
-        print("change node")
-        removeNode(node: table.node)
-        titleLabel.changeAnimate(text: type.title)
-        createTable(position: planePosition, name: type.rawValue)
+    public override func receive(_ message: PlaygroundValue) {
+        //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
+        //
+        guard case .string(let messageData) = message else { return }
         
-    }
-    
-    func removeNode(node: SCNNode) {
-        print("remove node")
-        let removeAction = SCNAction.removeFromParentNode()
-        removeAction.duration = 1
-        node.runAction(removeAction)
-//        node.removeFromParentNode()
-    }
-    
-//    func changeLabel(text: String) {
-//        //        descriptionView.showAnimate()
-//        //        showLabel(titleLabel)
-//        titleLabel.fadeTransition(1)
-//        titleLabel.text = text
-//        //        descriptionLabel.fadeTransition(1)
-//        //        descriptionLabel.text = table.description
-//    }
-    
-    func createTable(position: SCNVector3, name: String) {
-        scene = SCNScene(named: "art.scnassets/mealScene.scn")!
-        
-        if let node = scene.rootNode.childNode(withName: name, recursively: true) {
-            node.position = position
-            self.table.node = node
-//            changeLabel(text: name)
-            
-            sceneView.scene.rootNode.addChildNode(node)
-            self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
-                if node.name == ObjectType.fork.title {
-                    table.fork.node = node
-                    node.setReflectiveMaterial()
-                } else if node.name == ObjectType.knife.title {
-                    node.setReflectiveMaterial()
-                } else if node.name == ObjectType.plate.title {
-                    node.setPlateMaterial()
-                } else if node.name == ObjectType.breadPlate.title {
-                    node.setPlateMaterial()
-                } else if node.name == ObjectType.saladPlate.title {
-                    node.setPlateMaterial()
-                } else if node.name == ObjectType.wineGlass.title {
-                    //                        setReflectiveMaterial(node: node)
-                } else if node.name == ObjectType.waterGlass.title {
-                    //                        setReflectiveMaterial(node: node)
-                } else if node.name == ObjectType.plane.title {
-                    node.removeFromParentNode()
-                } else if node.name == ObjectType.saladFork.title {
-                    node.setReflectiveMaterial()
-                } else if node.name == ObjectType.soupSpoon.title {
-                    node.setReflectiveMaterial()
-                }  else if node.name == ObjectType.smallKnife.title {
-                    node.setReflectiveMaterial()
-                } else if node.name == ObjectType.napkin.title {
-                    
-                }
+        if isTableSet {
+            switch messageData {
+            case CutleryStatus.start.rawValue:
+                setCutleryPosition(status: .start)
+            case CutleryStatus.pause.rawValue:
+                setCutleryPosition(status: .pause)
+            case CutleryStatus.doNotTake.rawValue:
+                setCutleryPosition(status: .doNotTake)
+            case CutleryStatus.mealOver.rawValue:
+                setCutleryPosition(status: .mealOver)
+            case CutleryStatus.mealTasty.rawValue:
+                setCutleryPosition(status: .mealTasty)
+            case CutleryStatus.nextDish.rawValue:
+                setCutleryPosition(status: .nextDish)
+            case CutleryStatus.badService.rawValue:
+                setCutleryPosition(status: .badService)
+            case CutleryStatus.complaintsBook.rawValue:
+                setCutleryPosition(status: .complaintsBook)
+            case CutleryStatus.didNotLike.rawValue:
+                setCutleryPosition(status: .didNotLike)
+            case CutleryStatus.willBeRegularCustomer.rawValue:
+                setCutleryPosition(status: .willBeRegularCustomer)
+            default:
+                titleLabel.text = AlertMessage.tryAgainRule
             }
+        } else {
+            titleLabel.text = AlertMessage.findSurfaceBefore
         }
-        isTableSet = true
-        
-    }
-    
-    // Timing function that has a "bounce in" effect
-    func easeOutElastic(_ t: Float) -> Float {
-        let p: Float = 0.3
-        let poww = Float(pow(2.0, -10.0 * 10))
-        let x = t - p / 4.0
-        let y = 2.0 * Float.pi
-        let sinn = sin(x * y / p)
-        let result = poww * sinn + 1.0
-        return result
-    }
-    
-    func removeTable(node: SCNNode) {
-        node.removeFromParentNode()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,10 +101,21 @@ class LiveViewController_1_2: LiveViewController {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-        titleLabel.text = "Find a surface to place your table!"
+        
+        collectionView.isHidden = true
+        collectionView.backgroundView?.alpha = 0.6
+        collectionView.isPagingEnabled = false
+        titleLabel.backgroundColor = .lightGray
+        descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
+        
+        titleLabel.text = AlertMessage.findSurface
+        descriptionView.isHidden = false
         
         // Run the view's session
         sceneView.session.run(configuration)
+        
+        let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+        self.collectionView?.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
     }
     
     func addButton() {
@@ -165,7 +129,68 @@ class LiveViewController_1_2: LiveViewController {
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        changeTable(type: .formal)
+        mainScene.runAction(SCNAction.move(by: SCNVector3(0, 0.5, 0), duration: 1))
+    }
+    
+    func setCutleryPosition(status: CutleryStatus) {
+        if table.status != status {
+            table.status = status
+            titleLabel.changeAnimate(text: status.title)
+            animateCutlery(table.fork)
+            animateCutlery(table.knife)
+            animateCutlery(table.breadPlate)
+            animateCutlery(table.saladPlate)
+            animateCutlery(table.napkin)
+        }
+    }
+    
+    //    func setupDescriptionView() {
+    ////        descriptionView.showAnimate()
+    ////        showLabel(titleLabel)
+    //        titleLabel.fadeTransition(1)
+    //        titleLabel.text = table.title
+    ////        descriptionLabel.fadeTransition(1)
+    ////        descriptionLabel.text = table.description
+    //    }
+    
+    func showLabel(_ view: UILabel) {
+        if view.isHidden {
+            view.alpha = 0.0
+            view.isHidden = false
+            
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+                view.alpha = 0.7
+            }) { (isCompleted) in
+            }
+        }
+    }
+    
+    func hideLabel(_ view: UILabel) {
+        if !view.isHidden {
+            view.alpha = 0.7
+            view.isHidden = true
+            
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+                view.alpha = 0
+            }) { (isCompleted) in
+            }
+        }
+    }
+    
+    func animateCutlery(_ cutlery: Object) {
+        guard let newPosition = cutlery.position else {return}
+        guard let newRotation = cutlery.rotation else {return}
+        guard let node = cutlery.node else {return}
+        
+        let moveUp = SCNAction.move(by: SCNVector3(x: 0, y: 0.6, z: 0), duration: 0.5)
+        
+        node.runAction(moveUp) {
+            let moveTo = SCNAction.move(to: newPosition, duration: 1)
+            let rotateTo = SCNAction.rotateTo(x: CGFloat(newRotation.x), y: CGFloat(newRotation.y), z: CGFloat(newRotation.z), duration: 1)
+            
+            node.runAction(moveTo)
+            node.runAction(rotateTo)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -175,6 +200,66 @@ class LiveViewController_1_2: LiveViewController {
         sceneView.session.pause()
     }
     
+    func setScene(position: SCNVector3, name: String) {
+        if !isTableSet {
+            scene = SCNScene(named: "art.scnassets/mealScene.scn")!
+            if let plateNode = scene.rootNode.childNode(withName: name, recursively: true) {
+                plateNode.position = position
+                mainScene = plateNode
+                table = Table()
+                table.position = position
+                //                collectionView.showAnimate()
+                //                showLabel(titleLabel)
+                titleLabel.changeAnimate(text: cutleryStatus.title)
+                sceneView.scene.rootNode.addChildNode(plateNode)
+                self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+                    if node.name == ObjectType.fork.title {
+                        node.setReflectiveMaterial()
+                        fork = node
+                        table.fork.node = node
+                    } else if node.name == ObjectType.knife.title {
+                        node.setReflectiveMaterial()
+                        knife = node
+                        table.knife.node = node
+                    } else if node.name == ObjectType.plate.title {
+                        node.setPlateMaterial()
+                        plate = node
+                    } else if node.name == ObjectType.breadPlate.title {
+                        table.breadPlate.node = node
+                        node.setPlateMaterial()
+                    } else if node.name == ObjectType.saladPlate.title {
+                        table.saladPlate.node = node
+                        node.setPlateMaterial()
+                    } else if node.name == ObjectType.wineGlass.title {
+                        //                        setReflectiveMaterial(node: node)
+                    } else if node.name == ObjectType.waterGlass.title {
+                        //                        setReflectiveMaterial(node: node)
+                    } else if node.name == ObjectType.plane.title {
+                        node.removeFromParentNode()
+                    } else if node.name == ObjectType.saladFork.title {
+                        node.setReflectiveMaterial()
+                    } else if node.name == ObjectType.soupSpoon.title {
+                        node.setReflectiveMaterial()
+                    }  else if node.name == ObjectType.smallKnife.title {
+                        node.setReflectiveMaterial()
+                    } else if node.name == ObjectType.napkin.title {
+                        table.napkin.node = node
+                    }
+                }
+            }
+            isTableSet = true
+        }
+        //        else {
+        //            let alertController = UIAlertController(title: "Table Ready", message: "Your table is ready! Do you want to place another one?", preferredStyle: .actionSheet)
+        //            let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+        //                self.isTableSet = false
+        //            }
+        //            let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        //            alertController.addAction(yesAction)
+        //            alertController.addAction(noAction)
+        //        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: sceneView)
@@ -182,38 +267,55 @@ class LiveViewController_1_2: LiveViewController {
             
             if let hitResult = results.first {
                 let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-                planePosition = position
-                setScene(position: position, name: TableSetType.basic.rawValue)
+                setScene(position: position, name: tableType.rawValue)
             }
         }
     }
     
-    override public func receive(_ message: PlaygroundValue) {
-        //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
-        //
-        guard case .string(let messageData) = message else { return }
-        
-        if isTableSet {
-            switch messageData {
-            case TableSetType.basic.rawValue:
-//                setTable(type: .basic)
-                changeTable(type: .basic)
-            case TableSetType.casual.rawValue:
-//                setTable(type: .casual)
-                changeTable(type: .casual)
-            case TableSetType.formal.rawValue:
-//                setTable(type: .formal)
-                changeTable(type: .formal)
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        let tappedView = sender.view as! SCNView
+        let touchLocation = sender.location(in: tappedView)
+        let hitTest = tappedView.hitTest(touchLocation, options: nil)
+        if !hitTest.isEmpty {
+            guard let result = hitTest.first else {return}
+            guard let name = result.node.name else {return}
+            
+            switch name {
+            case ObjectType.fork.title:
+                performeSpeech(text: prepareSpeech(object: .fork))
+            case ObjectType.knife.title:
+                performeSpeech(text: prepareSpeech(object: .knife))
+            case ObjectType.saladFork.title:
+                performeSpeech(text: prepareSpeech(object: .saladFork))
+            case ObjectType.plate.title:
+                performeSpeech(text: prepareSpeech(object: .plate))
+            case ObjectType.soupSpoon.title:
+                performeSpeech(text: prepareSpeech(object: .soupSpoon))
+            case ObjectType.table.title:
+                performeSpeech(text: prepareSpeech(object: .table))
+            case ObjectType.waterGlass.title:
+                performeSpeech(text: prepareSpeech(object: .waterGlass))
+            case ObjectType.wineGlass.title:
+                performeSpeech(text: prepareSpeech(object: .wineGlass))
             default:
-//                changeLabel(text: "Invalid command. Try again with one of the table formats on the book.")
-//                titleLabel.text =
-                titleLabel.changeAnimate(text: "Invalid command. Try again with one of the table formats on the book.")
+                print("ibuiuiuiu")
             }
-        } else {
-//            changeLabel(text: "Invalid command. Try again with one of the table formats on the book.")
-            titleLabel.changeAnimate(text: "Invalid command. Try again with one of the table formats on the book.")
-//            titleLabel.text = "Find a surface to place your table first!"
         }
+    }
+    
+    func prepareSpeech(object: ObjectType) -> String {
+        let text = "\(object.title). \(object.description)."
+        return text
+    }
+    
+    func performeSpeech(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.rate = 0.5
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
+        print("Text: \(text)")
     }
 }
 
@@ -236,11 +338,10 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {
             let planeAnchor = anchor as! ARPlaneAnchor
-            if !isplaneFound && !isTableSet {
+            if !isPlaneFound {
                 let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
                 let planeNode = SCNNode()
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
-                planePosition = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
                 planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
                 let gridMaterial = SCNMaterial()
                 gridMaterial.diffuse.contents = UIColor.red
@@ -248,10 +349,8 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
                 planeNode.geometry = plane
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
-//                titleLabel.text = "Surface found! Now tap on it to place your table!"
-//                changeLabel(text: "Surface found! Now tap on it to place your table!")
-                titleLabel.changeAnimate(text: "Surface found! Now tap on it to place your table!")
-                isplaneFound = true
+                titleLabel.text = AlertMessage.surfaceFound
+                isPlaneFound = true
             }
         } else {
             return

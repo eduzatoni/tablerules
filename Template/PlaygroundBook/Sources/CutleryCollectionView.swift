@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-extension LiveViewController_1_1: UICollectionViewDelegate {
+extension LiveViewController_1_2: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         setCutleryPosition(status: dataArray[indexPath.row])
         let cell = collectionView.cellForItem(at: indexPath)
@@ -24,7 +24,7 @@ extension LiveViewController_1_1: UICollectionViewDelegate {
     }
 }
 
-extension LiveViewController_1_1: UICollectionViewDataSource {
+extension LiveViewController_1_2: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

@@ -105,6 +105,14 @@ struct CutleryString {
     static let willBeRegularCustomerDescription = "Otherwise if you really enjoy the service and food and want to say you will return more times you can place you fork over (above) you knife on your left side pointing to you (angled) in diagonal."
 }
 
+struct AlertMessage {
+    static let findSurface = "Find a surface to place your table!"
+    static let tryAgainTable = "Invalid command. Try again with one of the table formats on the book."
+    static let surfaceFound = "Surface found! Now tap on it to place your table!"
+    static let tryAgainRule = "Invalid command. Try again with one of the rules on the book."
+    static let findSurfaceBefore = "Find a surface to place your table first!"
+}
+
 func deg2rad(_ number: Double) -> Double {
     return number * .pi / 180
 }
