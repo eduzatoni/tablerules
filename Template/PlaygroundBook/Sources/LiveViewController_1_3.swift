@@ -20,7 +20,6 @@ class LiveViewController_1_3: LiveViewController {
     
     var isPlaneFound = false
     var isTableSet = false
-    var tableType: TableSetType!
     
     var table: Table!
     var scene: SCNScene!
@@ -28,9 +27,7 @@ class LiveViewController_1_3: LiveViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableType = .formal
-        
+
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
@@ -47,7 +44,6 @@ class LiveViewController_1_3: LiveViewController {
     public override func receive(_ message: PlaygroundValue) {
         //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
         //
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +61,6 @@ class LiveViewController_1_3: LiveViewController {
         
         // Run the view's session
         sceneView.session.run(configuration)
-        
     }
     
     func addButton() {
@@ -84,7 +79,6 @@ class LiveViewController_1_3: LiveViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         // Pause the view's session
         sceneView.session.pause()
     }
@@ -94,7 +88,7 @@ class LiveViewController_1_3: LiveViewController {
             scene = SCNScene(named: "art.scnassets/mealScene.scn")!
             if let plateNode = scene.rootNode.childNode(withName: name, recursively: true) {
                 plateNode.position = position
-                table = Table()
+                table = Table(setType: .formal)
                 table.position = position
                 titleLabel.changeAnimate(text: AlertMessage.pressObject)
                 sceneView.scene.rootNode.addChildNode(plateNode)
@@ -154,12 +148,11 @@ class LiveViewController_1_3: LiveViewController {
                 
                 if let hitResult = results.first {
                     let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-                    setScene(position: position, name: tableType.rawValue)
+                    setScene(position: position, name: table.setType.rawValue)
                 }
             }
         }
     }
-
     
     func prepareSpeech(object: ObjectType) -> String {
         let text = "\(object.title). \(object.description)."
@@ -217,10 +210,6 @@ extension LiveViewController_1_3: ARSCNViewDelegate {
                 titleLabel.changeAnimate(text: AlertMessage.surfaceFound)
                 isPlaneFound = true
             }
-            
-            //            if !isplaneFound && !isTableSet {
-            //
-            //            }
         } else {
             return
         }

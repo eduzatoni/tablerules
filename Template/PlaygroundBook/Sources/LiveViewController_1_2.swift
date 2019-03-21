@@ -21,7 +21,6 @@ class LiveViewController_1_2: LiveViewController {
     
     var isPlaneFound = false
     var isTableSet = false
-    var tableType: TableSetType!
     var cutleryStatus: CutleryStatus!
     let planeNode = SCNNode()
     var dataArray: [CutleryStatus]  = []
@@ -29,17 +28,12 @@ class LiveViewController_1_2: LiveViewController {
     var table: Table!
     
     var scene: SCNScene!
-    var fork: SCNNode = SCNNode()
-    var knife: SCNNode = SCNNode()
-    var plate: SCNNode = SCNNode()
-    var mainScene: SCNNode = SCNNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table = Table()
-        
-        tableType = .basic
+        table = Table(setType: .basic)
+
         cutleryStatus = .start
         
         collectionView.delegate = self
@@ -56,7 +50,7 @@ class LiveViewController_1_2: LiveViewController {
         //        sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
         
-        //        addButton()
+//        addButton()
         
         sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
     }
@@ -148,7 +142,8 @@ class LiveViewController_1_2: LiveViewController {
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        mainScene.runAction(SCNAction.move(by: SCNVector3(0, 0.5, 0), duration: 1))
+        print(table.soupPlate.position)
+        setCutleryPosition(status: .badService)
     }
     
     func setCutleryPosition(status: CutleryStatus) {
@@ -160,6 +155,8 @@ class LiveViewController_1_2: LiveViewController {
             animateCutlery(table.breadPlate)
             animateCutlery(table.saladPlate)
             animateCutlery(table.napkin)
+            animateCutlery(table.soupPlate)
+            print(table.soupPlate.position)
         }
     }
     
@@ -193,7 +190,6 @@ class LiveViewController_1_2: LiveViewController {
                 node.position = position
                 node.eulerAngles = table.node.eulerAngles
                 self.table.node = node
-                mainScene = node
                 //                collectionView.showAnimate()
                 //                showLabel(titleLabel)
                 titleLabel.changeAnimate(text: cutleryStatus.title)
@@ -201,15 +197,12 @@ class LiveViewController_1_2: LiveViewController {
                 self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
                     if node.name == ObjectType.fork.title {
                         node.setReflectiveMaterial()
-                        fork = node
                         table.fork.node = node
                     } else if node.name == ObjectType.knife.title {
                         node.setReflectiveMaterial()
-                        knife = node
                         table.knife.node = node
                     } else if node.name == ObjectType.plate.title {
                         node.setPlateMaterial()
-                        plate = node
                     } else if node.name == ObjectType.breadPlate.title {
                         table.breadPlate.node = node
                         node.setPlateMaterial()
@@ -217,9 +210,9 @@ class LiveViewController_1_2: LiveViewController {
                         table.saladPlate.node = node
                         node.setPlateMaterial()
                     } else if node.name == ObjectType.wineGlass.title {
-                        //                        setReflectiveMaterial(node: node)
+//                        setReflectiveMaterial(node: node)
                     } else if node.name == ObjectType.waterGlass.title {
-                        //                        setReflectiveMaterial(node: node)
+//                        setReflectiveMaterial(node: node)
                     } else if node.name == ObjectType.plane.title {
                         node.removeFromParentNode()
                     } else if node.name == ObjectType.saladFork.title {
@@ -230,8 +223,8 @@ class LiveViewController_1_2: LiveViewController {
                         node.setReflectiveMaterial()
                     } else if node.name == ObjectType.napkin.title {
                         table.napkin.node = node
-                    } else if node.name == ObjectType.napkin.title {
-                        table.napkin.node = node
+                    } else if node.name == ObjectType.soupPlate.title {
+                        table.soupPlate.node = node
                     }
                 }
             }
@@ -246,7 +239,7 @@ class LiveViewController_1_2: LiveViewController {
             
             if let hitResult = results.first {
                 let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-                setScene(position: position, name: tableType.rawValue)
+                setScene(position: position, name: table.setType.rawValue)
             }
         }
     }
@@ -272,15 +265,11 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
         if anchor is ARPlaneAnchor {
             if !isTableSet {
                 let planeAnchor = anchor as! ARPlaneAnchor
-                
                 if isPlaneFound {
-                    print("Remove plane")
                     planeNode.removeFromParentNode()
                     isPlaneFound = false
                 }
-                print("add plane")
                 let plane = SCNBox(width: 1.3, height: 0.05, length: 1.8, chamferRadius: 0.2)
-                
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
                 planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
                 let gridMaterial = SCNMaterial()
@@ -294,10 +283,6 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
                 titleLabel.changeAnimate(text: AlertMessage.surfaceFound)
                 isPlaneFound = true
             }
-            
-            //            if !isplaneFound && !isTableSet {
-            //
-            //            }
         } else {
             return
         }

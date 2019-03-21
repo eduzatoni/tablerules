@@ -1,16 +1,19 @@
 /*:
+ # Intro
  
-  Here are the first basic rules to avoid embarrassing moments and enjoy your dinner night to the fullest! Always use the utensils on the outside first and work your way inward. Same applies for the starters. Spoon on the right means there will be a soup course. If there are more than two glasses on the table it means it will be served both, red and white wine. In many cases, the cutlery for the dessert comes with it later.
+ Here are the first basic rules to avoid embarrassing moments and enjoy your dinner night to the fullest!
+ 
+ First, let's see how to set the table for different occasions.
  
  # Table Setting
  
  Let's see how to set the table for different occasions.
  
- **Basic:** Everyday meal.
+ **Basic [.basic]:** This is the simplest table setting. It is used on our everyday meal.
  
- **Casual:** Special Meal.
+ **Casual [.casual]:** That is how it starts to get a bit more complex. There are 3 different plates for soup, salad and main course. Use the utensils on the outside first and work your way inward. It is used on an special event like the first time you meet your girlfriend's parents.
  
- **Formal:** Really important meal.
+ **Formal [.formal]:** The most complex case. Same as casual with 3 plates and rule for the utensils. If there are more than two glasses on the table it means it will be served both, red and white wine. In many cases, the cutlery for the dessert comes with it later. It is used on very important events like a dinner in Buckingham Palace.
  
  * Callout(Note):
                  Tap the object to know more.
@@ -32,10 +35,6 @@ func setTable(_ type: TableSetType) {
 
 //#-end-hidden-code
 //Choose the table setting calling the function.
-//.basic || .casual || .formal
 setTable(/*#-editable-code*/.casual/*#-end-editable-code*/)
-//#-hidden-code
-//PlaygroundPage.current.assessmentStatus = .fail(["You could use .formal"])
-//#-end-hidden-code
 //: [**Next Page**](@next)
 //#-hidden-code

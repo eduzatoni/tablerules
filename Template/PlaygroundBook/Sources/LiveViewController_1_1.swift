@@ -10,17 +10,13 @@ import PlaygroundSupport
 import UIKit
 import SceneKit
 import ARKit
-import AVFoundation
 
 class LiveViewController_1_1: LiveViewController {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var tableType: TableSetType!
-    
-    var tablePosition = SCNVector3()
-    var table = Table()
+    var table:Table!
     var scene: SCNScene!
     var isPlaneFound = false
     var isTableSet = false
@@ -28,8 +24,7 @@ class LiveViewController_1_1: LiveViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        table = Table()
-        tableType = .basic
+        table = Table(setType: .basic)
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         sceneView.delegate = self
@@ -75,20 +70,18 @@ class LiveViewController_1_1: LiveViewController {
     
     func setScene(position: SCNVector3, name: String) {
         if !isTableSet {
-            titleLabel.changeAnimate(text: tableType.title)
+            titleLabel.changeAnimate(text: table.setType.title)
             createTable(position: position, name: name)
         }
     }
     
     func changeTable(type: TableSetType) {
-        print("change node")
         removeNode(node: table.node)
         titleLabel.changeAnimate(text: type.title)
         createTable(position: table.node.position, name: type.rawValue)
     }
     
     func removeNode(node: SCNNode) {
-        print("remove node")
         let removeAction = SCNAction.removeFromParentNode()
         removeAction.duration = 1
         node.runAction(removeAction)
@@ -116,9 +109,9 @@ class LiveViewController_1_1: LiveViewController {
                 } else if node.name == ObjectType.saladPlate.title {
                     node.setPlateMaterial()
                 } else if node.name == ObjectType.wineGlass.title {
-                    //                        setReflectiveMaterial(node: node)
+//                        setReflectiveMaterial(node: node)
                 } else if node.name == ObjectType.waterGlass.title {
-                    //                        setReflectiveMaterial(node: node)
+//                        setReflectiveMaterial(node: node)
                 } else if node.name == ObjectType.plane.title {
                     node.removeFromParentNode()
                 } else if node.name == ObjectType.saladFork.title {
@@ -191,7 +184,7 @@ class LiveViewController_1_1: LiveViewController {
                 
                 if let hitResult = results.first {
                     let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-                    setScene(position: position, name: tableType.rawValue)
+                    setScene(position: position, name: table.setType.rawValue)
                 }
             }
         }
@@ -254,11 +247,9 @@ extension LiveViewController_1_1: ARSCNViewDelegate {
                 let planeAnchor = anchor as! ARPlaneAnchor
                 
                 if isPlaneFound {
-                    print("Remove plane")
                     planeNode.removeFromParentNode()
                     isPlaneFound = false
                 }
-                print("add plane")
                 let plane = SCNBox(width: 1.3, height: 0.05, length: 1.8, chamferRadius: 0.2)
                 
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)

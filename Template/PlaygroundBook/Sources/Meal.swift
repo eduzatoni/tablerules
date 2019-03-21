@@ -174,7 +174,7 @@ public enum CutleryStatus: String {
     
     var napkinPosition: SCNVector3 {
         switch self {
-        case .start: return CutleryPosition.startNapkinPlatePosition
+        case .start: return CutleryPosition.startNapkinPosition
         case .pause: return CutleryPosition.secondNapkinPlatePosition
         case .doNotTake: return CutleryPosition.secondNapkinPlatePosition
         case .done: return CutleryPosition.secondNapkinPlatePosition
@@ -189,7 +189,7 @@ public enum CutleryStatus: String {
     
     var napkinRotation: SCNVector3 {
         switch self {
-        case .start: return CutleryPosition.startNapkinPlateRotation
+        case .start: return CutleryPosition.startNapkinRotation
         case .pause: return CutleryPosition.secondNapkinPlateRotation
         case .doNotTake: return CutleryPosition.secondNapkinPlateRotation
         case .done: return CutleryPosition.secondNapkinPlateRotation
@@ -199,6 +199,36 @@ public enum CutleryStatus: String {
         case .complain: return CutleryPosition.secondNapkinPlateRotation
         case .horrible: return CutleryPosition.secondNapkinPlateRotation
         case .willComeBack: return CutleryPosition.secondNapkinPlateRotation
+        }
+    }
+    
+    var soupPlatePosition: SCNVector3 {
+        switch self {
+        case .start: return CutleryPosition.startSoupPlatePosition
+        case .pause: return CutleryPosition.secondSoupPlatePosition
+        case .doNotTake: return CutleryPosition.secondSoupPlatePosition
+        case .done: return CutleryPosition.secondSoupPlatePosition
+        case .delicious: return CutleryPosition.secondSoupPlatePosition
+        case .nextDish: return CutleryPosition.secondSoupPlatePosition
+        case .badService: return CutleryPosition.secondSoupPlatePosition
+        case .complain: return CutleryPosition.secondSoupPlatePosition
+        case .horrible: return CutleryPosition.secondSoupPlatePosition
+        case .willComeBack: return CutleryPosition.secondSoupPlatePosition
+        }
+    }
+    
+    var soupPlateRotation: SCNVector3 {
+        switch self {
+        case .start: return CutleryPosition.startSoupPlateRotation
+        case .pause: return CutleryPosition.secondSoupPlateRotation
+        case .doNotTake: return CutleryPosition.secondSoupPlateRotation
+        case .done: return CutleryPosition.secondSoupPlateRotation
+        case .delicious: return CutleryPosition.secondSoupPlateRotation
+        case .nextDish: return CutleryPosition.secondSoupPlateRotation
+        case .badService: return CutleryPosition.secondSoupPlateRotation
+        case .complain: return CutleryPosition.secondSoupPlateRotation
+        case .horrible: return CutleryPosition.secondSoupPlateRotation
+        case .willComeBack: return CutleryPosition.secondSoupPlateRotation
         }
     }
     
@@ -216,9 +246,11 @@ struct Table {
     var description: String
     var position: SCNVector3
     var node: SCNNode
+    var setType: TableSetType
     var fork: Object
     var knife: Object
     var saladPlate: Object
+    var soupPlate: Object
     var breadPlate: Object
     var napkin: Object
     
@@ -241,17 +273,21 @@ struct Table {
             breadPlate.rotation = status.breadPlateRotation
             napkin.position = status.napkinPosition
             napkin.rotation = status.napkinRotation
+            soupPlate.position = status.soupPlatePosition
+            soupPlate.rotation = status.soupPlateRotation
         }
     }
     
-    init() {
+    init(setType: TableSetType) {
         fork = Object(type: .fork, position: CutleryPosition.startForkPosition, rotation: CutleryPosition.startForkRotation)
         knife = Object(type: .knife, position: CutleryPosition.startKnifePosition, rotation: CutleryPosition.startKnifeRotation)
         saladPlate = Object(type: .saladPlate, position: CutleryPosition.startSaladPlatePosition, rotation: CutleryPosition.startSaladPlateRotation)
         breadPlate = Object(type: .breadPlate, position: CutleryPosition.startBreadPlatePosition, rotation: CutleryPosition.startBreadPlateRotation)
-        napkin = Object(type: .napkin, position: CutleryPosition.startNapkinPlatePosition, rotation: CutleryPosition.startNapkinPlateRotation)
+        napkin = Object(type: .napkin, position: CutleryPosition.startNapkinPosition, rotation: CutleryPosition.startNapkinRotation)
+        soupPlate = Object(type: .soupPlate, position: CutleryPosition.startSoupPlatePosition, rotation: CutleryPosition.startSoupPlateRotation)
         position = SCNVector3(0, 0, 0)
         node = SCNNode()
+        self.setType = setType
         self.title = CutleryStatus.start.title
         self.description = CutleryStatus.start.description
         self.storedStatus = .start
@@ -282,6 +318,7 @@ enum ObjectType: String{
     case plate = "plate"
     case saladPlate = "saladPlate"
     case breadPlate = "breadPlate"
+    case soupPlate = "soupPlate"
     case table = "table"
     case wineGlass = "wineGlass"
     case waterGlass = "waterGlass"
@@ -298,6 +335,7 @@ enum ObjectType: String{
         case .soupSpoon: return "Soup Spoon"
         case .plate: return "Plate"
         case .saladPlate: return "Salad Plate"
+        case .soupPlate: return "soupPlate"
         case .breadPlate: return "Bread Plate"
         case .table: return "Table"
         case .wineGlass: return "Wine Glass"
@@ -317,6 +355,7 @@ enum ObjectType: String{
         case .soupSpoon: return "That's a soup spoon"
         case .plate: return "That's a plate"
         case .saladPlate: return "Salad Plate"
+        case .soupPlate: return "Soup Plate"
         case .breadPlate: return "Bread Plate"
         case .table: return "That's a table"
         case .wineGlass: return "That's a wine glass"

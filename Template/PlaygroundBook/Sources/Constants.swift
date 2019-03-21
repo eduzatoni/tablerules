@@ -66,20 +66,23 @@ struct CutleryPosition {
     static let startSaladPlatePosition = SCNVector3(0, 0.026, 0)
     static let startSaladPlateRotation = SCNVector3(0, 0, 0)
     
-    static let startNapkinPlatePosition = SCNVector3(0, 0.085, 0)
-    static let startNapkinPlateRotation = SCNVector3(deg2rad(90), 0, 0)
+    static let startNapkinPosition = SCNVector3(0, 0.085, 0)
+    static let startNapkinRotation = SCNVector3(deg2rad(90), 0, 0)
     
-    static let secondBreadPlatePosition = SCNVector3(-0.516, 0.036, -0.346)
+    static let startSoupPlatePosition = SCNVector3(-0.03, 0.05, 0)
+    static let startSoupPlateRotation = SCNVector3(0, 0, 0)
+    
+    static let secondBreadPlatePosition = SCNVector3(-0.516, 1000, -0.346)
     static let secondBreadPlateRotation = SCNVector3(0, 0, 0)
     
-    static let secondSaladPlatePosition = SCNVector3(-0.516, 0.017, -0.346)
+    static let secondSaladPlatePosition = SCNVector3(-0.516, 1000, -0.346)
     static let secondSaladPlateRotation = SCNVector3(0, 0, 0)
-    
-//    static let secondNapkinPlatePosition = SCNVector3(-0.516, 0.097, -0.346)
-//    static let secondNapkinPlateRotation = SCNVector3(deg2rad(90), 0, 0)
     
     static let secondNapkinPlatePosition = SCNVector3(-0.516, 1000, -0.346)
     static let secondNapkinPlateRotation = SCNVector3(deg2rad(90), 0, 0)
+    
+    static let secondSoupPlatePosition = SCNVector3(-0.03, 1000, 0)
+    static let secondSoupPlateRotation = SCNVector3(0, 0, 0)
 }
 
 struct CutleryString {
