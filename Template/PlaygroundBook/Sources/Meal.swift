@@ -14,26 +14,26 @@ public enum CutleryStatus: String {
     case start = "start"
     case pause = "pause"
     case doNotTake = "doNotTake"
-    case mealOver = "mealOver"
-    case mealTasty = "mealTasty"
+    case done = "done"
+    case delicious = "delicious"
     case nextDish = "nextDish"
     case badService = "badService"
-    case complaintsBook = "complaintsBook"
-    case didNotLike = "didNotLike"
-    case willBeRegularCustomer = "willBeRegularCustomer"
+    case complain = "complain"
+    case horrible = "horrible"
+    case willComeBack = "willComeBack"
     
     var title: String {
         switch self {
         case .start: return CutleryString.startTitle
         case .pause: return CutleryString.pauseTitle
         case .doNotTake: return CutleryString.doNotTakeTitle
-        case .mealOver: return CutleryString.mealOverTitle
-        case .mealTasty: return CutleryString.mealTastyTitle
+        case .done: return CutleryString.mealOverTitle
+        case .delicious: return CutleryString.mealTastyTitle
         case .nextDish: return CutleryString.nextDishTitle
         case .badService: return CutleryString.badServiceTitle
-        case .complaintsBook: return CutleryString.complaintsBookTitle
-        case .didNotLike: return CutleryString.didNotLikeTitle
-        case .willBeRegularCustomer: return CutleryString.willBeRegularCustomerTitle
+        case .complain: return CutleryString.complaintsBookTitle
+        case .horrible: return CutleryString.didNotLikeTitle
+        case .willComeBack: return CutleryString.willBeRegularCustomerTitle
         }
     }
     
@@ -42,13 +42,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryString.startDescription
         case .pause: return CutleryString.pauseDescription
         case .doNotTake: return CutleryString.doNotTakeDescription
-        case .mealOver: return CutleryString.mealOverDescription
-        case .mealTasty: return CutleryString.mealTastyDescription
+        case .done: return CutleryString.mealOverDescription
+        case .delicious: return CutleryString.mealTastyDescription
         case .nextDish: return CutleryString.nextDishDescription
         case .badService: return CutleryString.badServiceDescription
-        case .complaintsBook: return CutleryString.complaintsBookDescription
-        case .didNotLike: return CutleryString.didNotLikeDescription
-        case .willBeRegularCustomer: return CutleryString.willBeRegularCustomerDescription
+        case .complain: return CutleryString.complaintsBookDescription
+        case .horrible: return CutleryString.didNotLikeDescription
+        case .willComeBack: return CutleryString.willBeRegularCustomerDescription
         }
     }
     
@@ -57,13 +57,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startForkPosition
         case .pause: return CutleryPosition.pauseForkPosition
         case .doNotTake: return CutleryPosition.doNotTakeForkPosition
-        case .mealOver: return CutleryPosition.mealOverForkPosition
-        case .mealTasty: return CutleryPosition.mealTastyForkPosition
+        case .done: return CutleryPosition.mealOverForkPosition
+        case .delicious: return CutleryPosition.mealTastyForkPosition
         case .nextDish: return CutleryPosition.nextDishForkPosition
         case .badService: return CutleryPosition.badServiceForkPosition
-        case .complaintsBook: return CutleryPosition.complaintsBookForkPosition
-        case .didNotLike: return CutleryPosition.didNotLikeForkPosition
-        case .willBeRegularCustomer: return CutleryPosition.willBeRegularCustomerForkPosition
+        case .complain: return CutleryPosition.complaintsBookForkPosition
+        case .horrible: return CutleryPosition.didNotLikeForkPosition
+        case .willComeBack: return CutleryPosition.willBeRegularCustomerForkPosition
         }
     }
     
@@ -72,13 +72,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startForkRotation
         case .pause: return CutleryPosition.pauseForkRotation
         case .doNotTake: return CutleryPosition.doNotTakeForkRotation
-        case .mealOver: return CutleryPosition.mealOverForkRotation
-        case .mealTasty: return CutleryPosition.mealTastyForkRotation
+        case .done: return CutleryPosition.mealOverForkRotation
+        case .delicious: return CutleryPosition.mealTastyForkRotation
         case .nextDish: return CutleryPosition.nextDishForkRotation
         case .badService: return CutleryPosition.badServiceForkRotation
-        case .complaintsBook: return CutleryPosition.complaintsBookForkRotation
-        case .didNotLike: return CutleryPosition.didNotLikeForkRotation
-        case .willBeRegularCustomer: return CutleryPosition.willBeRegularCustomerForkRotation
+        case .complain: return CutleryPosition.complaintsBookForkRotation
+        case .horrible: return CutleryPosition.didNotLikeForkRotation
+        case .willComeBack: return CutleryPosition.willBeRegularCustomerForkRotation
         }
     }
     
@@ -87,13 +87,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startKnifePosition
         case .pause: return CutleryPosition.pauseKnifePosition
         case .doNotTake: return CutleryPosition.doNotTakeKnifePosition
-        case .mealOver: return CutleryPosition.mealOverKnifePosition
-        case .mealTasty: return CutleryPosition.mealTastyKnifePosition
+        case .done: return CutleryPosition.mealOverKnifePosition
+        case .delicious: return CutleryPosition.mealTastyKnifePosition
         case .nextDish: return CutleryPosition.nextDishKnifePosition
         case .badService: return CutleryPosition.badServiceKnifePosition
-        case .complaintsBook: return CutleryPosition.complaintsBookKnifePosition
-        case .didNotLike: return CutleryPosition.didNotLikeKnifePosition
-        case .willBeRegularCustomer: return CutleryPosition.willBeRegularCustomerKnifePosition
+        case .complain: return CutleryPosition.complaintsBookKnifePosition
+        case .horrible: return CutleryPosition.didNotLikeKnifePosition
+        case .willComeBack: return CutleryPosition.willBeRegularCustomerKnifePosition
         }
     }
     
@@ -102,13 +102,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startKnifeRotation
         case .pause: return CutleryPosition.pauseKnifeRotation
         case .doNotTake: return CutleryPosition.doNotTakeKnifeRotation
-        case .mealOver: return CutleryPosition.mealOverKnifeRotation
-        case .mealTasty: return CutleryPosition.mealTastyKnifeRotation
+        case .done: return CutleryPosition.mealOverKnifeRotation
+        case .delicious: return CutleryPosition.mealTastyKnifeRotation
         case .nextDish: return CutleryPosition.nextDishKnifeRotation
         case .badService: return CutleryPosition.badServiceKnifeRotation
-        case .complaintsBook: return CutleryPosition.complaintsBookKnifeRotation
-        case .didNotLike: return CutleryPosition.didNotLikeKnifeRotation
-        case .willBeRegularCustomer: return CutleryPosition.willBeRegularCustomerKnifeRotation
+        case .complain: return CutleryPosition.complaintsBookKnifeRotation
+        case .horrible: return CutleryPosition.didNotLikeKnifeRotation
+        case .willComeBack: return CutleryPosition.willBeRegularCustomerKnifeRotation
         }
     }
     
@@ -117,13 +117,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startSaladPlatePosition
         case .pause: return CutleryPosition.secondSaladPlatePosition
         case .doNotTake: return CutleryPosition.secondSaladPlatePosition
-        case .mealOver: return CutleryPosition.secondSaladPlatePosition
-        case .mealTasty: return CutleryPosition.secondSaladPlatePosition
+        case .done: return CutleryPosition.secondSaladPlatePosition
+        case .delicious: return CutleryPosition.secondSaladPlatePosition
         case .nextDish: return CutleryPosition.secondSaladPlatePosition
         case .badService: return CutleryPosition.secondSaladPlatePosition
-        case .complaintsBook: return CutleryPosition.secondSaladPlatePosition
-        case .didNotLike: return CutleryPosition.secondSaladPlatePosition
-        case .willBeRegularCustomer: return CutleryPosition.secondSaladPlatePosition
+        case .complain: return CutleryPosition.secondSaladPlatePosition
+        case .horrible: return CutleryPosition.secondSaladPlatePosition
+        case .willComeBack: return CutleryPosition.secondSaladPlatePosition
         }
     }
     
@@ -132,13 +132,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startSaladPlateRotation
         case .pause: return CutleryPosition.secondSaladPlateRotation
         case .doNotTake: return CutleryPosition.secondSaladPlateRotation
-        case .mealOver: return CutleryPosition.secondSaladPlateRotation
-        case .mealTasty: return CutleryPosition.secondSaladPlateRotation
+        case .done: return CutleryPosition.secondSaladPlateRotation
+        case .delicious: return CutleryPosition.secondSaladPlateRotation
         case .nextDish: return CutleryPosition.secondSaladPlateRotation
         case .badService: return CutleryPosition.secondSaladPlateRotation
-        case .complaintsBook: return CutleryPosition.secondSaladPlateRotation
-        case .didNotLike: return CutleryPosition.secondSaladPlateRotation
-        case .willBeRegularCustomer: return CutleryPosition.secondSaladPlateRotation
+        case .complain: return CutleryPosition.secondSaladPlateRotation
+        case .horrible: return CutleryPosition.secondSaladPlateRotation
+        case .willComeBack: return CutleryPosition.secondSaladPlateRotation
         }
     }
     
@@ -147,13 +147,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startBreadPlatePosition
         case .pause: return CutleryPosition.secondBreadPlatePosition
         case .doNotTake: return CutleryPosition.secondBreadPlatePosition
-        case .mealOver: return CutleryPosition.secondBreadPlatePosition
-        case .mealTasty: return CutleryPosition.secondBreadPlatePosition
+        case .done: return CutleryPosition.secondBreadPlatePosition
+        case .delicious: return CutleryPosition.secondBreadPlatePosition
         case .nextDish: return CutleryPosition.secondBreadPlatePosition
         case .badService: return CutleryPosition.secondBreadPlatePosition
-        case .complaintsBook: return CutleryPosition.secondBreadPlatePosition
-        case .didNotLike: return CutleryPosition.secondBreadPlatePosition
-        case .willBeRegularCustomer: return CutleryPosition.secondBreadPlatePosition
+        case .complain: return CutleryPosition.secondBreadPlatePosition
+        case .horrible: return CutleryPosition.secondBreadPlatePosition
+        case .willComeBack: return CutleryPosition.secondBreadPlatePosition
         }
     }
     
@@ -162,13 +162,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startBreadPlateRotation
         case .pause: return CutleryPosition.secondBreadPlateRotation
         case .doNotTake: return CutleryPosition.secondBreadPlateRotation
-        case .mealOver: return CutleryPosition.secondBreadPlateRotation
-        case .mealTasty: return CutleryPosition.secondBreadPlateRotation
+        case .done: return CutleryPosition.secondBreadPlateRotation
+        case .delicious: return CutleryPosition.secondBreadPlateRotation
         case .nextDish: return CutleryPosition.secondBreadPlateRotation
         case .badService: return CutleryPosition.secondBreadPlateRotation
-        case .complaintsBook: return CutleryPosition.secondBreadPlateRotation
-        case .didNotLike: return CutleryPosition.secondBreadPlateRotation
-        case .willBeRegularCustomer: return CutleryPosition.secondBreadPlateRotation
+        case .complain: return CutleryPosition.secondBreadPlateRotation
+        case .horrible: return CutleryPosition.secondBreadPlateRotation
+        case .willComeBack: return CutleryPosition.secondBreadPlateRotation
         }
     }
     
@@ -177,13 +177,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startNapkinPlatePosition
         case .pause: return CutleryPosition.secondNapkinPlatePosition
         case .doNotTake: return CutleryPosition.secondNapkinPlatePosition
-        case .mealOver: return CutleryPosition.secondNapkinPlatePosition
-        case .mealTasty: return CutleryPosition.secondNapkinPlatePosition
+        case .done: return CutleryPosition.secondNapkinPlatePosition
+        case .delicious: return CutleryPosition.secondNapkinPlatePosition
         case .nextDish: return CutleryPosition.secondNapkinPlatePosition
         case .badService: return CutleryPosition.secondNapkinPlatePosition
-        case .complaintsBook: return CutleryPosition.secondNapkinPlatePosition
-        case .didNotLike: return CutleryPosition.secondNapkinPlatePosition
-        case .willBeRegularCustomer: return CutleryPosition.secondNapkinPlatePosition
+        case .complain: return CutleryPosition.secondNapkinPlatePosition
+        case .horrible: return CutleryPosition.secondNapkinPlatePosition
+        case .willComeBack: return CutleryPosition.secondNapkinPlatePosition
         }
     }
     
@@ -192,13 +192,13 @@ public enum CutleryStatus: String {
         case .start: return CutleryPosition.startNapkinPlateRotation
         case .pause: return CutleryPosition.secondNapkinPlateRotation
         case .doNotTake: return CutleryPosition.secondNapkinPlateRotation
-        case .mealOver: return CutleryPosition.secondNapkinPlateRotation
-        case .mealTasty: return CutleryPosition.secondNapkinPlateRotation
+        case .done: return CutleryPosition.secondNapkinPlateRotation
+        case .delicious: return CutleryPosition.secondNapkinPlateRotation
         case .nextDish: return CutleryPosition.secondNapkinPlateRotation
         case .badService: return CutleryPosition.secondNapkinPlateRotation
-        case .complaintsBook: return CutleryPosition.secondNapkinPlateRotation
-        case .didNotLike: return CutleryPosition.secondNapkinPlateRotation
-        case .willBeRegularCustomer: return CutleryPosition.secondNapkinPlateRotation
+        case .complain: return CutleryPosition.secondNapkinPlateRotation
+        case .horrible: return CutleryPosition.secondNapkinPlateRotation
+        case .willComeBack: return CutleryPosition.secondNapkinPlateRotation
         }
     }
     
@@ -287,6 +287,7 @@ enum ObjectType: String{
     case waterGlass = "waterGlass"
     case napkin = "napkin"
     case plane = "plane"
+    case placemat = "placemat"
     
     var title: String {
         switch self {
@@ -303,6 +304,7 @@ enum ObjectType: String{
         case .waterGlass: return "Water Glass"
         case .napkin: return "Napkin"
         case .plane: return "Plane"
+        case .placemat: return "Placemat"
         }
     }
     
@@ -321,6 +323,7 @@ enum ObjectType: String{
         case .waterGlass: return "That's a water glass"
         case .napkin: return "Napkin"
         case .plane: return ""
+        case .placemat: return ""
         }
     }
 }

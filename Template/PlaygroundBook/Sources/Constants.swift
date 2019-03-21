@@ -107,7 +107,7 @@ struct CutleryString {
 
 struct AlertMessage {
     static let findSurface = "Find a surface!"
-    static let surfaceFound = "Now tap on it to place your table!"
+    static let surfaceFound = "Now tap on it to place your utensils!"
     static let placeTable = "First place your table."
     static let tryAgainTable = "Try again with one of the table formats on the book."
     static let tryAgainRule = "Try again with one of the rules on the book."

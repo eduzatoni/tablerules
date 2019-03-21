@@ -37,13 +37,15 @@ class LiveViewController_1_2: LiveViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        table = Table()
+        
         tableType = .basic
         cutleryStatus = .start
         
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        dataArray = [.start, .pause, .doNotTake, .mealOver, .mealTasty, .nextDish, .badService, .complaintsBook, .didNotLike, .willBeRegularCustomer]
+        dataArray = [.start, .pause, .doNotTake, .done, .delicious, .nextDish, .badService, .complain, .horrible, .willComeBack]
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
@@ -56,8 +58,7 @@ class LiveViewController_1_2: LiveViewController {
         
         //        addButton()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        sceneView.addGestureRecognizer(tapGestureRecognizer)
+        sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
     }
     
     public override func receive(_ message: PlaygroundValue) {
@@ -74,20 +75,20 @@ class LiveViewController_1_2: LiveViewController {
                     setCutleryPosition(status: .pause)
                 case CutleryStatus.doNotTake.rawValue:
                     setCutleryPosition(status: .doNotTake)
-                case CutleryStatus.mealOver.rawValue:
-                    setCutleryPosition(status: .mealOver)
-                case CutleryStatus.mealTasty.rawValue:
-                    setCutleryPosition(status: .mealTasty)
+                case CutleryStatus.done.rawValue:
+                    setCutleryPosition(status: .done)
+                case CutleryStatus.delicious.rawValue:
+                    setCutleryPosition(status: .delicious)
                 case CutleryStatus.nextDish.rawValue:
                     setCutleryPosition(status: .nextDish)
                 case CutleryStatus.badService.rawValue:
                     setCutleryPosition(status: .badService)
-                case CutleryStatus.complaintsBook.rawValue:
-                    setCutleryPosition(status: .complaintsBook)
-                case CutleryStatus.didNotLike.rawValue:
-                    setCutleryPosition(status: .didNotLike)
-                case CutleryStatus.willBeRegularCustomer.rawValue:
-                    setCutleryPosition(status: .willBeRegularCustomer)
+                case CutleryStatus.complain.rawValue:
+                    setCutleryPosition(status: .complain)
+                case CutleryStatus.horrible.rawValue:
+                    setCutleryPosition(status: .horrible)
+                case CutleryStatus.willComeBack.rawValue:
+                    setCutleryPosition(status: .willComeBack)
                 default:
                     titleLabel.text = AlertMessage.tryAgainRule
                 }
@@ -97,7 +98,6 @@ class LiveViewController_1_2: LiveViewController {
         } else {
             titleLabel.text = AlertMessage.placeTable
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +121,20 @@ class LiveViewController_1_2: LiveViewController {
         
         let indexPathForFirstRow = IndexPath(row: 0, section: 0)
         self.collectionView?.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
+    var currentAngleY: Float = 0.0
+    
+    @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: gesture.view!)
+        var newAngleY = (Float)(translation.x)*(Float)(Double.pi)/180.0
+        newAngleY += currentAngleY
+        print("rotate")
+        table.node.eulerAngles.y = newAngleY
+        
+        if gesture.state == .ended {
+            currentAngleY = newAngleY
+        }   
     }
     
     func addButton() {
@@ -175,15 +189,15 @@ class LiveViewController_1_2: LiveViewController {
     func setScene(position: SCNVector3, name: String) {
         if !isTableSet {
             scene = SCNScene(named: "art.scnassets/mealScene.scn")!
-            if let plateNode = scene.rootNode.childNode(withName: name, recursively: true) {
-                plateNode.position = position
-                mainScene = plateNode
-                table = Table()
-                table.position = position
+            if let node = scene.rootNode.childNode(withName: name, recursively: true) {
+                node.position = position
+                node.eulerAngles = table.node.eulerAngles
+                self.table.node = node
+                mainScene = node
                 //                collectionView.showAnimate()
                 //                showLabel(titleLabel)
                 titleLabel.changeAnimate(text: cutleryStatus.title)
-                sceneView.scene.rootNode.addChildNode(plateNode)
+                sceneView.scene.rootNode.addChildNode(node)
                 self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
                     if node.name == ObjectType.fork.title {
                         node.setReflectiveMaterial()
@@ -219,7 +233,6 @@ class LiveViewController_1_2: LiveViewController {
                     } else if node.name == ObjectType.napkin.title {
                         table.napkin.node = node
                     }
-                    
                 }
             }
             isTableSet = true
@@ -236,52 +249,6 @@ class LiveViewController_1_2: LiveViewController {
                 setScene(position: position, name: tableType.rawValue)
             }
         }
-    }
-    
-    @objc func handleTap(sender: UITapGestureRecognizer) {
-        let tappedView = sender.view as! SCNView
-        let touchLocation = sender.location(in: tappedView)
-        let hitTest = tappedView.hitTest(touchLocation, options: nil)
-        if !hitTest.isEmpty {
-            guard let result = hitTest.first else {return}
-            guard let name = result.node.name else {return}
-            
-            switch name {
-            case ObjectType.fork.title:
-                performeSpeech(text: prepareSpeech(object: .fork))
-            case ObjectType.knife.title:
-                performeSpeech(text: prepareSpeech(object: .knife))
-            case ObjectType.saladFork.title:
-                performeSpeech(text: prepareSpeech(object: .saladFork))
-            case ObjectType.plate.title:
-                performeSpeech(text: prepareSpeech(object: .plate))
-            case ObjectType.soupSpoon.title:
-                performeSpeech(text: prepareSpeech(object: .soupSpoon))
-            case ObjectType.table.title:
-                performeSpeech(text: prepareSpeech(object: .table))
-            case ObjectType.waterGlass.title:
-                performeSpeech(text: prepareSpeech(object: .waterGlass))
-            case ObjectType.wineGlass.title:
-                performeSpeech(text: prepareSpeech(object: .wineGlass))
-            default:
-                print("ibuiuiuiu")
-            }
-        }
-    }
-    
-    func prepareSpeech(object: ObjectType) -> String {
-        let text = "\(object.title). \(object.description)."
-        return text
-    }
-    
-    func performeSpeech(text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        utterance.rate = 0.5
-        
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
-        print("Text: \(text)")
     }
 }
 
@@ -312,14 +279,16 @@ extension LiveViewController_1_2: ARSCNViewDelegate {
                     isPlaneFound = false
                 }
                 print("add plane")
-                let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+                let plane = SCNBox(width: 1.3, height: 0.05, length: 1.8, chamferRadius: 0.2)
                 
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
                 planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
                 let gridMaterial = SCNMaterial()
-                gridMaterial.diffuse.contents = UIColor.red
+                gridMaterial.diffuse.contents = UIImage(named: "wood_texture.jpg")
                 plane.materials = [gridMaterial]
                 planeNode.geometry = plane
+                planeNode.scale = SCNVector3(x: 0.425, y: 0.1, z: 0.45)
+                planeNode.eulerAngles = SCNVector3(x: Float(deg2rad(0)), y: Float(deg2rad(-90)), z: Float(deg2rad(0)))
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
                 titleLabel.changeAnimate(text: AlertMessage.surfaceFound)

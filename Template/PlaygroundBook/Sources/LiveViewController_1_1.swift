@@ -42,21 +42,20 @@ class LiveViewController_1_1: LiveViewController {
         
         //        addButton()
         sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
-        
     }
     
     var currentAngleY: Float = 0.0
     
     @objc func panGesture(_ gesture: UIPanGestureRecognizer) {
-        
-        
         let translation = gesture.translation(in: gesture.view!)
         var newAngleY = (Float)(translation.x)*(Float)(Double.pi)/180.0
         newAngleY += currentAngleY
         
         table.node.eulerAngles.y = newAngleY
         
-        if(gesture.state == .ended) { currentAngleY = newAngleY }
+        if gesture.state == .ended {
+            currentAngleY = newAngleY
+        }
 //        gesture.minimumNumberOfTouches = 1
 //
 //        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
@@ -248,8 +247,6 @@ extension LiveViewController_1_1: ARSCNViewDelegate {
         print("sessionInterruptionEnded")
     }
     
-    
-    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {
             
@@ -262,23 +259,21 @@ extension LiveViewController_1_1: ARSCNViewDelegate {
                     isPlaneFound = false
                 }
                 print("add plane")
-                let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+                let plane = SCNBox(width: 1.3, height: 0.05, length: 1.8, chamferRadius: 0.2)
                 
                 planeNode.position = SCNVector3(planeAnchor.center.x, 0, planeAnchor.center.z)
                 planeNode.transform = SCNMatrix4MakeRotation(-Float.pi/2, 1, 0, 0)
                 let gridMaterial = SCNMaterial()
-                gridMaterial.diffuse.contents = UIColor.red
+                gridMaterial.diffuse.contents = UIImage(named: "wood_texture.jpg")
                 plane.materials = [gridMaterial]
                 planeNode.geometry = plane
+                planeNode.scale = SCNVector3(x: 0.425, y: 0.1, z: 0.45)
+                planeNode.eulerAngles = SCNVector3(x: Float(deg2rad(0)), y: Float(deg2rad(-90)), z: Float(deg2rad(0)))
                 planeNode.name = ObjectType.plane.title
                 node.addChildNode(planeNode)
                 titleLabel.changeAnimate(text: AlertMessage.surfaceFound)
                 isPlaneFound = true
             }
-            
-//            if !isplaneFound && !isTableSet {
-//
-//            }
         } else {
             return
         }

@@ -22,6 +22,9 @@ import PlaygroundSupport
 import Foundation
 //Use the call below to send a message with an object to the LiveView of this page. Import Foundation is required.
 //sendValue(.data(try NSKeyedArchiver.archivedData(withRootObject: /*YourObject*/, requiringSecureCoding: true)))
+
+PlaygroundPage.current.assessmentStatus = .fail(hints: ["You could call the function using '.formal' to set a formal table.", "You could call the function using '.casual' to set a casual table."], solution: "setTable(.formal)")
+
 func setTable(_ type: TableSetType) {
     sendValue(.string(type.rawValue))
 //    sendValue(.data(try NSKeyedArchiver.archivedData(withRootObject: type, requiringSecureCoding: true)))
@@ -29,7 +32,7 @@ func setTable(_ type: TableSetType) {
 
 //#-end-hidden-code
 //Choose the table setting calling the function.
-//.basic| .casual | .formal
+//.basic || .casual || .formal
 setTable(/*#-editable-code*/.casual/*#-end-editable-code*/)
 //#-hidden-code
 //PlaygroundPage.current.assessmentStatus = .fail(["You could use .formal"])
