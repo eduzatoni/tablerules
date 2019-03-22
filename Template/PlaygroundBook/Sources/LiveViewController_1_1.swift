@@ -201,7 +201,6 @@ class LiveViewController_1_1: LiveViewController {
     }
     
     override public func receive(_ message: PlaygroundValue) {
-        //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
         guard case .string(let messageData) = message else { return }
         if isPlaneFound {
             if isTableSet {

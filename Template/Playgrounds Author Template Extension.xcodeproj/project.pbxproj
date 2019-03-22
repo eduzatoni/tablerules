@@ -10,7 +10,6 @@
 		4B9D1A522241052D00EA4339 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9D1A512241052D00EA4339 /* art.scnassets */; };
 		4B9D1A532241053100EA4339 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9D1A512241052D00EA4339 /* art.scnassets */; };
 		4B9D1A592241055D00EA4339 /* ARScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9D1A542241055C00EA4339 /* ARScene.swift */; };
-		4B9D1A5A2241055D00EA4339 /* CutleryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9D1A552241055C00EA4339 /* CutleryCollectionView.swift */; };
 		4B9D1A5B2241055D00EA4339 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9D1A562241055C00EA4339 /* Constants.swift */; };
 		4B9D1A5C2241055D00EA4339 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9D1A572241055D00EA4339 /* Extensions.swift */; };
 		4B9D1A5D2241055D00EA4339 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9D1A582241055D00EA4339 /* Meal.swift */; };
@@ -116,7 +115,6 @@
 /* Begin PBXFileReference section */
 		4B9D1A512241052D00EA4339 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		4B9D1A542241055C00EA4339 /* ARScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARScene.swift; sourceTree = "<group>"; };
-		4B9D1A552241055C00EA4339 /* CutleryCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutleryCollectionView.swift; sourceTree = "<group>"; };
 		4B9D1A562241055C00EA4339 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4B9D1A572241055D00EA4339 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B9D1A582241055D00EA4339 /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 				960FFD85223A7898001750E8 /* LiveViewController_1_2.swift */,
 				960FFD87223A789F001750E8 /* LiveViewController_1_3.swift */,
 				4B9D1A542241055C00EA4339 /* ARScene.swift */,
-				4B9D1A552241055C00EA4339 /* CutleryCollectionView.swift */,
 				4B9D1A562241055C00EA4339 /* Constants.swift */,
 				4B9D1A572241055D00EA4339 /* Extensions.swift */,
 				4B9D1A582241055D00EA4339 /* Meal.swift */,
@@ -485,7 +482,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B9D1A5D2241055D00EA4339 /* Meal.swift in Sources */,
-				4B9D1A5A2241055D00EA4339 /* CutleryCollectionView.swift in Sources */,
 				4B9D1A5C2241055D00EA4339 /* Extensions.swift in Sources */,
 				5E3196F32061DEA40077BBD7 /* LiveViewSupport.swift in Sources */,
 				5EF2F9AE2054BBF300191409 /* LiveViewController.swift in Sources */,

@@ -17,13 +17,11 @@ class LiveViewController_1_2: LiveViewController {
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
     
     var isPlaneFound = false
     var isTableSet = false
     var cutleryStatus: CutleryStatus!
     let planeNode = SCNNode()
-    var dataArray: [CutleryStatus]  = []
     
     var table: Table!
     
@@ -35,11 +33,6 @@ class LiveViewController_1_2: LiveViewController {
         table = Table(setType: .casual)
 
         cutleryStatus = .start
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        dataArray = [.start, .pause, .doNotTake, .done, .delicious, .nextDish, .badService, .complain, .horrible, .willComeBack]
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
@@ -56,8 +49,6 @@ class LiveViewController_1_2: LiveViewController {
     }
     
     public override func receive(_ message: PlaygroundValue) {
-        //        Uncomment the following to be able to receive messages from the Contents.swift playground page. You will need to define the type of your incoming object and then perform any actions with it.
-        //
         guard case .string(let messageData) = message else { return }
         
         if isPlaneFound {
@@ -100,10 +91,7 @@ class LiveViewController_1_2: LiveViewController {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-        
-        collectionView.isHidden = true
-        collectionView.backgroundView?.alpha = 0.6
-        collectionView.isPagingEnabled = false
+
         titleLabel.backgroundColor = .lightGray
         descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
         
@@ -112,9 +100,6 @@ class LiveViewController_1_2: LiveViewController {
         
         // Run the view's session
         sceneView.session.run(configuration)
-        
-        let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-        self.collectionView?.selectItem(at: indexPathForFirstRow, animated: true, scrollPosition: .centeredHorizontally)
     }
     
     var currentAngleY: Float = 0.0
@@ -154,16 +139,30 @@ class LiveViewController_1_2: LiveViewController {
             animateCutlery(table.knife)
             
             if status == .start {
-                table.breadPlate.node.showAnimate(duration: 1)
-                table.saladPlate.node.showAnimate(duration: 1)
-                table.napkin.node.showAnimate(duration: 1)
-                table.soupPlate.node.showAnimate(duration: 1)
+//                table.breadPlate.node.showAnimate(duration: 1)
+//                table.saladPlate.node.showAnimate(duration: 1)
+//                table.napkin.node.showAnimate(duration: 1)
+//                table.soupPlate.node.showAnimate(duration: 1)
+                showObjects(nodes: [table.breadPlate.node, table.saladPlate.node, table.napkin.node, table.soupPlate.node, table.soupSpoon.node, table.saladFork.node])
             } else {
-                table.breadPlate.node.hideAnimate(duration: 1)
-                table.saladPlate.node.hideAnimate(duration: 1)
-                table.napkin.node.hideAnimate(duration: 1)
-                table.soupPlate.node.hideAnimate(duration: 1)
+//                table.breadPlate.node.hideAnimate(duration: 1)
+//                table.saladPlate.node.hideAnimate(duration: 1)
+//                table.napkin.node.hideAnimate(duration: 1)
+//                table.soupPlate.node.hideAnimate(duration: 1)
+                hideObjects(nodes: [table.breadPlate.node, table.saladPlate.node, table.napkin.node, table.soupPlate.node, table.soupSpoon.node, table.saladFork.node])
             }
+        }
+    }
+    
+    func hideObjects(nodes: [SCNNode]){
+        for n in nodes {
+            n.hideAnimate(duration: 1)
+        }
+    }
+    
+    func showObjects(nodes: [SCNNode]) {
+        for n in nodes {
+            n.showAnimate(duration: 1)
         }
     }
     
@@ -185,7 +184,6 @@ class LiveViewController_1_2: LiveViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         // Pause the view's session
         sceneView.session.pause()
     }
@@ -197,8 +195,6 @@ class LiveViewController_1_2: LiveViewController {
                 node.position = position
                 node.eulerAngles = table.node.eulerAngles
                 self.table.node = node
-                //                collectionView.showAnimate()
-                //                showLabel(titleLabel)
                 titleLabel.changeAnimate(text: cutleryStatus.title)
                 sceneView.scene.rootNode.addChildNode(node)
                 self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
@@ -223,8 +219,10 @@ class LiveViewController_1_2: LiveViewController {
                     } else if node.name == ObjectType.plane.title {
                         node.removeFromParentNode()
                     } else if node.name == ObjectType.saladFork.title {
+                        table.saladFork.node = node
                         node.setReflectiveMaterial()
                     } else if node.name == ObjectType.soupSpoon.title {
+                        table.soupSpoon.node = node
                         node.setReflectiveMaterial()
                     }  else if node.name == ObjectType.breadKnife.title {
                         node.setReflectiveMaterial()

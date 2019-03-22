@@ -133,6 +133,8 @@ struct Table {
     var soupPlate: Object
     var breadPlate: Object
     var napkin: Object
+    var saladFork: Object
+    var soupSpoon: Object
     
     private var storedStatus: CutleryStatus
     var status: CutleryStatus {
@@ -157,6 +159,8 @@ struct Table {
         breadPlate = Object(type: .breadPlate, position: CutleryPosition.startBreadPlatePosition, rotation: CutleryPosition.startBreadPlateRotation)
         napkin = Object(type: .napkin, position: CutleryPosition.startNapkinPosition, rotation: CutleryPosition.startNapkinRotation)
         soupPlate = Object(type: .soupPlate, position: CutleryPosition.startSoupPlatePosition, rotation: CutleryPosition.startSoupPlateRotation)
+        saladFork = Object(type: .saladFork, position: CutleryPosition.startSaladForkPosition, rotation: CutleryPosition.startSaladForkRotation)
+        soupSpoon = Object(type: .soupSpoon, position: CutleryPosition.startSoupSpoonPosition, rotation: CutleryPosition.startSoupSpoonRotation)
         position = SCNVector3(0, 0, 0)
         node = SCNNode()
         self.setType = setType
