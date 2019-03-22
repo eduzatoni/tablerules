@@ -1,10 +1,4 @@
 /*:
- # Intro
- 
- Here are the first basic rules to avoid embarrassing moments and enjoy your dinner night to the fullest!
- 
- First, let's see how to set the table for different occasions.
- 
  # Table Setting
  
  Let's see how to set the table for different occasions.
@@ -16,7 +10,7 @@
  **Formal [.formal]:** The most complex case. Same as casual with 3 plates and rule for the utensils. If there are more than two glasses on the table it means it will be served both, red and white wine. In many cases, the cutlery for the dessert comes with it later. It is used on very important events like a dinner in Buckingham Palace.
  
  * Callout(Note):
-                 Tap the object to know more.
+                 Tap the object to know more about it.
  
  */
 //#-hidden-code

@@ -32,7 +32,7 @@ class LiveViewController_1_2: LiveViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table = Table(setType: .basic)
+        table = Table(setType: .casual)
 
         cutleryStatus = .start
         
@@ -152,11 +152,18 @@ class LiveViewController_1_2: LiveViewController {
             titleLabel.changeAnimate(text: status.title)
             animateCutlery(table.fork)
             animateCutlery(table.knife)
-            animateCutlery(table.breadPlate)
-            animateCutlery(table.saladPlate)
-            animateCutlery(table.napkin)
-            animateCutlery(table.soupPlate)
-            print(table.soupPlate.position)
+            
+            if status == .start {
+                table.breadPlate.node.showAnimate(duration: 1)
+                table.saladPlate.node.showAnimate(duration: 1)
+                table.napkin.node.showAnimate(duration: 1)
+                table.soupPlate.node.showAnimate(duration: 1)
+            } else {
+                table.breadPlate.node.hideAnimate(duration: 1)
+                table.saladPlate.node.hideAnimate(duration: 1)
+                table.napkin.node.hideAnimate(duration: 1)
+                table.soupPlate.node.hideAnimate(duration: 1)
+            }
         }
     }
     

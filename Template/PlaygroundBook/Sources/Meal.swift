@@ -111,127 +111,7 @@ public enum CutleryStatus: String {
         case .willComeBack: return CutleryPosition.willBeRegularCustomerKnifeRotation
         }
     }
-    
-    var saladPlatePosition: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startSaladPlatePosition
-        case .pause: return CutleryPosition.secondSaladPlatePosition
-        case .doNotTake: return CutleryPosition.secondSaladPlatePosition
-        case .done: return CutleryPosition.secondSaladPlatePosition
-        case .delicious: return CutleryPosition.secondSaladPlatePosition
-        case .nextDish: return CutleryPosition.secondSaladPlatePosition
-        case .badService: return CutleryPosition.secondSaladPlatePosition
-        case .complain: return CutleryPosition.secondSaladPlatePosition
-        case .horrible: return CutleryPosition.secondSaladPlatePosition
-        case .willComeBack: return CutleryPosition.secondSaladPlatePosition
-        }
-    }
-    
-    var saladPlateRotation: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startSaladPlateRotation
-        case .pause: return CutleryPosition.secondSaladPlateRotation
-        case .doNotTake: return CutleryPosition.secondSaladPlateRotation
-        case .done: return CutleryPosition.secondSaladPlateRotation
-        case .delicious: return CutleryPosition.secondSaladPlateRotation
-        case .nextDish: return CutleryPosition.secondSaladPlateRotation
-        case .badService: return CutleryPosition.secondSaladPlateRotation
-        case .complain: return CutleryPosition.secondSaladPlateRotation
-        case .horrible: return CutleryPosition.secondSaladPlateRotation
-        case .willComeBack: return CutleryPosition.secondSaladPlateRotation
-        }
-    }
-    
-    var breadPlatePosition: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startBreadPlatePosition
-        case .pause: return CutleryPosition.secondBreadPlatePosition
-        case .doNotTake: return CutleryPosition.secondBreadPlatePosition
-        case .done: return CutleryPosition.secondBreadPlatePosition
-        case .delicious: return CutleryPosition.secondBreadPlatePosition
-        case .nextDish: return CutleryPosition.secondBreadPlatePosition
-        case .badService: return CutleryPosition.secondBreadPlatePosition
-        case .complain: return CutleryPosition.secondBreadPlatePosition
-        case .horrible: return CutleryPosition.secondBreadPlatePosition
-        case .willComeBack: return CutleryPosition.secondBreadPlatePosition
-        }
-    }
-    
-    var breadPlateRotation: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startBreadPlateRotation
-        case .pause: return CutleryPosition.secondBreadPlateRotation
-        case .doNotTake: return CutleryPosition.secondBreadPlateRotation
-        case .done: return CutleryPosition.secondBreadPlateRotation
-        case .delicious: return CutleryPosition.secondBreadPlateRotation
-        case .nextDish: return CutleryPosition.secondBreadPlateRotation
-        case .badService: return CutleryPosition.secondBreadPlateRotation
-        case .complain: return CutleryPosition.secondBreadPlateRotation
-        case .horrible: return CutleryPosition.secondBreadPlateRotation
-        case .willComeBack: return CutleryPosition.secondBreadPlateRotation
-        }
-    }
-    
-    var napkinPosition: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startNapkinPosition
-        case .pause: return CutleryPosition.secondNapkinPlatePosition
-        case .doNotTake: return CutleryPosition.secondNapkinPlatePosition
-        case .done: return CutleryPosition.secondNapkinPlatePosition
-        case .delicious: return CutleryPosition.secondNapkinPlatePosition
-        case .nextDish: return CutleryPosition.secondNapkinPlatePosition
-        case .badService: return CutleryPosition.secondNapkinPlatePosition
-        case .complain: return CutleryPosition.secondNapkinPlatePosition
-        case .horrible: return CutleryPosition.secondNapkinPlatePosition
-        case .willComeBack: return CutleryPosition.secondNapkinPlatePosition
-        }
-    }
-    
-    var napkinRotation: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startNapkinRotation
-        case .pause: return CutleryPosition.secondNapkinPlateRotation
-        case .doNotTake: return CutleryPosition.secondNapkinPlateRotation
-        case .done: return CutleryPosition.secondNapkinPlateRotation
-        case .delicious: return CutleryPosition.secondNapkinPlateRotation
-        case .nextDish: return CutleryPosition.secondNapkinPlateRotation
-        case .badService: return CutleryPosition.secondNapkinPlateRotation
-        case .complain: return CutleryPosition.secondNapkinPlateRotation
-        case .horrible: return CutleryPosition.secondNapkinPlateRotation
-        case .willComeBack: return CutleryPosition.secondNapkinPlateRotation
-        }
-    }
-    
-    var soupPlatePosition: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startSoupPlatePosition
-        case .pause: return CutleryPosition.secondSoupPlatePosition
-        case .doNotTake: return CutleryPosition.secondSoupPlatePosition
-        case .done: return CutleryPosition.secondSoupPlatePosition
-        case .delicious: return CutleryPosition.secondSoupPlatePosition
-        case .nextDish: return CutleryPosition.secondSoupPlatePosition
-        case .badService: return CutleryPosition.secondSoupPlatePosition
-        case .complain: return CutleryPosition.secondSoupPlatePosition
-        case .horrible: return CutleryPosition.secondSoupPlatePosition
-        case .willComeBack: return CutleryPosition.secondSoupPlatePosition
-        }
-    }
-    
-    var soupPlateRotation: SCNVector3 {
-        switch self {
-        case .start: return CutleryPosition.startSoupPlateRotation
-        case .pause: return CutleryPosition.secondSoupPlateRotation
-        case .doNotTake: return CutleryPosition.secondSoupPlateRotation
-        case .done: return CutleryPosition.secondSoupPlateRotation
-        case .delicious: return CutleryPosition.secondSoupPlateRotation
-        case .nextDish: return CutleryPosition.secondSoupPlateRotation
-        case .badService: return CutleryPosition.secondSoupPlateRotation
-        case .complain: return CutleryPosition.secondSoupPlateRotation
-        case .horrible: return CutleryPosition.secondSoupPlateRotation
-        case .willComeBack: return CutleryPosition.secondSoupPlateRotation
-        }
-    }
-    
+
     var image: UIImage {
         if let image = UIImage(named: self.rawValue) {
             return image
@@ -267,14 +147,6 @@ struct Table {
             fork.rotation = status.forkRotation
             knife.position = status.knifePosition
             knife.rotation = status.knifeRotation
-            saladPlate.position = status.saladPlatePosition
-            saladPlate.rotation = status.saladPlateRotation
-            breadPlate.position = status.breadPlatePosition
-            breadPlate.rotation = status.breadPlateRotation
-            napkin.position = status.napkinPosition
-            napkin.rotation = status.napkinRotation
-            soupPlate.position = status.soupPlatePosition
-            soupPlate.rotation = status.soupPlateRotation
         }
     }
     
@@ -335,7 +207,7 @@ enum ObjectType: String{
         case .soupSpoon: return "Soup Spoon"
         case .plate: return "Plate"
         case .saladPlate: return "Salad Plate"
-        case .soupPlate: return "soupPlate"
+        case .soupPlate: return "Soup Plate"
         case .breadPlate: return "Bread Plate"
         case .table: return "Table"
         case .wineGlass: return "Wine Glass"

@@ -3,9 +3,9 @@
  
  **Let the dinner begin [.start]:** That is how your dinner starts. Fork on your left and knife on your right.
  
- **I need a break [.pause]:** You are taking a break during your lunch or dinner. Place your fork and knife in the center of the place forming an inverted 'V'.
+ **I need a break [.pause]:** You are taking a break during your lunch or dinner. Place your fork on the left border and your knife on the right border pointing to the center of the plate.
  
- **Do not take the plate [.doNotTake]:** Like this you inform the waiter to keep your plate on the table.
+ **Do not take the plate [.doNotTake]:** Inform the waiter to keep your plate on the table. Place your fork and knife in the center of the place forming an inverted 'V'.
  
  **I'm done [.done]:** Place your knife and fork together in the center of the plate pointing to your front to indicate that you have finished.
  
@@ -21,7 +21,6 @@
 
  **I loved it! I definitely will come back [.willComeBack]:** You really enjoy the service and food and want to say you will return more times? Place you fork above your knife on your right side pointing to your front in diagonal.
  */
-
 //#-hidden-code
 import UIKit
 import PlaygroundSupport

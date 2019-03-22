@@ -16,6 +16,14 @@ extension SCNNode {
         physicsBody?.restitution = restitution
     }
     
+    func showAnimate(duration: TimeInterval) {
+        runAction(SCNAction.fadeOpacity(to: 1, duration: duration))
+    }
+    
+    func hideAnimate(duration: TimeInterval) {
+        runAction(SCNAction.fadeOpacity(to: 0, duration: duration))
+    }
+    
     func setPlateMaterial() {
         let plateMaterial = SCNMaterial()
         plateMaterial.metalness.contents = 0.8
