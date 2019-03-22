@@ -7,7 +7,6 @@
 
 import Foundation
 import PlaygroundSupport
-import UIKit
 import SceneKit
 import ARKit
 
@@ -30,12 +29,12 @@ class LiveViewController_1_1: LiveViewController {
         sceneView.delegate = self
         titleLabel.backgroundColor = .lightGray
         descriptionView.setStyle(cornerRadius: 20, color: .lightGray, alpha: 0.6)
-        // Show statistics such as fps and timing information
-        //        sceneView.showsStatistics = true
-        //        sceneView.allowsCameraControl = true
+// Show statistics such as fps and timing information
+//        sceneView.showsStatistics = true
+//        sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
         
-        //        addButton()
+//        addButton()
         sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
     }
     
@@ -221,16 +220,25 @@ class LiveViewController_1_1: LiveViewController {
             titleLabel.changeAnimate(text: AlertMessage.findSurface)
         }
     }
+    
+    func alertMessage(title: String, message: String){
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertContoller.addAction(action)
+        self.present(alertContoller, animated: true, completion: nil)
+    }
 }
 
 extension LiveViewController_1_1: ARSCNViewDelegate {
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
+        alertMessage(title: "Error", message: "There was an error while loading your AR session")
         print("error")
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        alertMessage(title: "Error", message: "Your AR session was interrupted.")
         print("sessionWasInterrupted")
     }
     

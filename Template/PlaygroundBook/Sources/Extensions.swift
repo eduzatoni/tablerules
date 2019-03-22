@@ -7,14 +7,8 @@
 
 import Foundation
 import SceneKit
-import UIKit
 
 extension SCNNode {
-    func setPhysics(isAffectedByGravity: Bool, type: SCNPhysicsBodyType, restitution: CGFloat = 1){
-        physicsBody = SCNPhysicsBody(type: type, shape: SCNPhysicsShape(node: self, options: nil))
-        physicsBody?.isAffectedByGravity = isAffectedByGravity
-        physicsBody?.restitution = restitution
-    }
     
     func showAnimate(duration: TimeInterval) {
         runAction(SCNAction.fadeOpacity(to: 1, duration: duration))
@@ -63,30 +57,6 @@ extension UIView {
         layer.shadowRadius = 3.0
         layer.shadowOpacity = 0.2
         layer.cornerRadius = 20
-    }
-    
-    func showAnimate(){
-        if isHidden {
-            alpha = 0.0
-            isHidden = false
-            
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                self.alpha = 0.7
-            }) { (isCompleted) in
-            }
-        }
-    }
-    
-    func hideAnimate(){
-        if !isHidden {
-            alpha = 0.7
-            isHidden = true
-            
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                self.alpha = 0
-            }) { (isCompleted) in
-            }
-        }
     }
 }
 

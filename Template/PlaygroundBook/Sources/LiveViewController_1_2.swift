@@ -7,7 +7,6 @@
 
 import Foundation
 import PlaygroundSupport
-import UIKit
 import SceneKit
 import ARKit
 import AVFoundation
@@ -37,7 +36,6 @@ class LiveViewController_1_2: LiveViewController {
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
         sceneView.delegate = self
-        
         // Show statistics such as fps and timing information
         //        sceneView.showsStatistics = true
         //        sceneView.allowsCameraControl = true
@@ -50,7 +48,6 @@ class LiveViewController_1_2: LiveViewController {
     
     public override func receive(_ message: PlaygroundValue) {
         guard case .string(let messageData) = message else { return }
-        
         if isPlaneFound {
             if isTableSet {
                 switch messageData {
@@ -108,7 +105,6 @@ class LiveViewController_1_2: LiveViewController {
         let translation = gesture.translation(in: gesture.view!)
         var newAngleY = (Float)(translation.x)*(Float)(Double.pi)/180.0
         newAngleY += currentAngleY
-        print("rotate")
         table.node.eulerAngles.y = newAngleY
         
         if gesture.state == .ended {
@@ -127,9 +123,7 @@ class LiveViewController_1_2: LiveViewController {
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        print(table.soupPlate.position)
-        setCutleryPosition(status: .badService)
-    }
+        setCutleryPosition(status: .badService)    }
     
     func setCutleryPosition(status: CutleryStatus) {
         if table.status != status {
@@ -139,16 +133,8 @@ class LiveViewController_1_2: LiveViewController {
             animateCutlery(table.knife)
             
             if status == .start {
-//                table.breadPlate.node.showAnimate(duration: 1)
-//                table.saladPlate.node.showAnimate(duration: 1)
-//                table.napkin.node.showAnimate(duration: 1)
-//                table.soupPlate.node.showAnimate(duration: 1)
                 showObjects(nodes: [table.breadPlate.node, table.saladPlate.node, table.napkin.node, table.soupPlate.node, table.soupSpoon.node, table.saladFork.node])
             } else {
-//                table.breadPlate.node.hideAnimate(duration: 1)
-//                table.saladPlate.node.hideAnimate(duration: 1)
-//                table.napkin.node.hideAnimate(duration: 1)
-//                table.soupPlate.node.hideAnimate(duration: 1)
                 hideObjects(nodes: [table.breadPlate.node, table.saladPlate.node, table.napkin.node, table.soupPlate.node, table.soupSpoon.node, table.saladFork.node])
             }
         }
@@ -248,16 +234,25 @@ class LiveViewController_1_2: LiveViewController {
             }
         }
     }
+    
+    func alertMessage(title: String, message: String){
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertContoller.addAction(action)
+        self.present(alertContoller, animated: true, completion: nil)
+    }
 }
 
 extension LiveViewController_1_2: ARSCNViewDelegate {
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
+        alertMessage(title: "Error", message: "There was an error while loading your AR session")
         print("error")
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        alertMessage(title: "Error", message: "Your AR session was interrupted.")
         print("sessionWasInterrupted")
     }
     
