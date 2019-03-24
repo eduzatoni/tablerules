@@ -1,4 +1,12 @@
 /*:
+ # Welcome
+ 
+ 1. Allow your camera access;
+ 2. Find a flat surface to place your table;
+ 3. Tap on the table to start!
+ 
+ **Here are the basic things you should know before that special meal.**
+ 
  # Table Setting
  
  Let's see how to set the table for different occasions.
@@ -10,21 +18,18 @@
  **Formal [.formal]:** The most complex case. Same as casual with 3 plates and rule for the utensils. If there are more than two glasses on the table it means it will be served both, red and white wine. In many cases, the cutlery for the dessert comes with it later. It is used on very important events like a dinner in Buckingham Palace.
  
  * Callout(Note):
-                 Tap the object to know more about it.
+                 Tap the objects to know more about them.
  
  */
 //#-hidden-code
 import UIKit
 import PlaygroundSupport
 import Foundation
-//Use the call below to send a message with an object to the LiveView of this page. Import Foundation is required.
-//sendValue(.data(try NSKeyedArchiver.archivedData(withRootObject: /*YourObject*/, requiringSecureCoding: true)))
 
 PlaygroundPage.current.assessmentStatus = .fail(hints: ["You could call the function using '.formal' to set a formal table.", "You could call the function using '.casual' to set a casual table."], solution: "setTable(.formal)")
 
 func setTable(_ type: TableSetType) {
     sendValue(.string(type.rawValue))
-//    sendValue(.data(try NSKeyedArchiver.archivedData(withRootObject: type, requiringSecureCoding: true)))
 }
 
 //#-end-hidden-code

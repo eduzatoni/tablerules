@@ -110,14 +110,6 @@ public enum CutleryStatus: String {
         case .willComeBack: return CutleryPosition.willBeRegularCustomerKnifeRotation
         }
     }
-
-    var image: UIImage {
-        if let image = UIImage(named: self.rawValue) {
-            return image
-        } else {
-            return UIImage()
-        }
-    }
 }
 
 struct Table {
@@ -218,26 +210,6 @@ enum ObjectType: String{
         case .napkin: return "Napkin"
         case .plane: return "Plane"
         case .placemat: return "Placemat"
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .fork: return "That's a fork"
-        case .saladFork: return "That's a salad fork"
-        case .knife: return "That's a knife"
-        case .breadKnife: return "Bread Knife"
-        case .soupSpoon: return "That's a soup spoon"
-        case .plate: return "That's a plate"
-        case .saladPlate: return "Salad Plate"
-        case .soupPlate: return "Soup Plate"
-        case .breadPlate: return "Bread Plate"
-        case .table: return "That's a table"
-        case .wineGlass: return "That's a wine glass"
-        case .waterGlass: return "That's a water glass"
-        case .napkin: return "Napkin"
-        case .plane: return ""
-        case .placemat: return ""
         }
     }
 }

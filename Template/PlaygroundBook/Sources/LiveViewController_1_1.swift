@@ -196,7 +196,6 @@ class LiveViewController_1_1: LiveViewController {
         
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
-        print("Text: \(text)")
     }
     
     override public func receive(_ message: PlaygroundValue) {

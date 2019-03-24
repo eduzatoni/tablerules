@@ -1,6 +1,8 @@
 /*:
  # Cutlery Rules
  
+ Now we are going to see how you can position your cutlery to inform the waiter about the food and service.
+ 
  **Let the dinner begin [.start]:** That is how your dinner starts. Fork on your left and knife on your right.
  
  **I need a break [.pause]:** You are taking a break during your lunch or dinner. Place your fork on the left border and your knife on the right border pointing to the center of the plate.
@@ -24,8 +26,6 @@
 //#-hidden-code
 import UIKit
 import PlaygroundSupport
-//Use the call below to send a message with an object to the LiveView of this page. Import Foundation is required.
-//sendValue(.data(try NSKeyedArchiver.archivedData(withRootObject: /*YourObject*/, requiringSecureCoding: true)))
 
 PlaygroundPage.current.assessmentStatus = .fail(hints: ["You could call the function using '.delicious' to say the meal was good."], solution: "Do 'setRule(.delicious)'.")
 
@@ -35,5 +35,6 @@ func setRule(_ type: CutleryStatus) {
 //#-end-hidden-code
 //Run the code to see how to place your cutlery.
 setRule(/*#-editable-code*/.delicious/*#-end-editable-code*/)
+//:Now your are ready for that special dinner. Enjoy!
 //: [**Previous Page**](@previous)
 
