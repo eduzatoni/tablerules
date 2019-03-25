@@ -34,6 +34,8 @@ func setTable(_ type: TableSetType) {
 
 //#-end-hidden-code
 //Choose the table setting calling the function.
-setTable(/*#-editable-code*/.casual/*#-end-editable-code*/)
+//#-code-completion(everything, hide)
+//#-code-completion(identifier, show, basic, casual, formal)
+setTable(./*#-editable-code*/casual/*#-end-editable-code*/)
 //: [**Next Page**](@next)
 //#-hidden-code

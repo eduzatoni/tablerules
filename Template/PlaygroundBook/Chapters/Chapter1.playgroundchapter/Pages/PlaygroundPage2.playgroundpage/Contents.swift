@@ -34,7 +34,10 @@ func setRule(_ type: CutleryStatus) {
 }
 //#-end-hidden-code
 //Run the code to see how to place your cutlery.
-setRule(/*#-editable-code*/.delicious/*#-end-editable-code*/)
+//#-code-completion(everything, hide)
+//#-code-completion(identifier, show, start, pause, doNotTake, done, delicious, nextDish, badService, complain, horrible, willComeBack)
+setRule(./*#-editable-code*/delicious/*#-end-editable-code*/)
 //:Now your are ready for that special dinner. Enjoy!
+
 //: [**Previous Page**](@previous)
 

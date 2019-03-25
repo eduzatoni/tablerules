@@ -10,7 +10,7 @@ import PlaygroundSupport
 import SceneKit
 import ARKit
 
-class LiveViewController_1_1: LiveViewController {
+class TableSetting_1_1: LiveViewController {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -34,7 +34,6 @@ class LiveViewController_1_1: LiveViewController {
 //        sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
         
-//        addButton()
         sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
     }
     
@@ -50,17 +49,6 @@ class LiveViewController_1_1: LiveViewController {
         if gesture.state == .ended {
             currentAngleY = newAngleY
         }
-//        gesture.minimumNumberOfTouches = 1
-//
-//        let results = self.sceneView.hitTest(gesture.location(in: gesture.view), types: ARHitTestResult.ResultType.featurePoint)
-//        guard let result: ARHitTestResult = results.first else {
-//            return
-//        }
-//
-//        let position = SCNVector3Make(result.worldTransform.columns.3.x, result.worldTransform.columns.3.y, result.worldTransform.columns.3.z)
-//
-//        let moveTo = SCNAction.move(to: position, duration: 0)
-//        table.node.runAction(moveTo)
     }
     
     func setTable(type: TableSetType) {
@@ -143,20 +131,6 @@ class LiveViewController_1_1: LiveViewController {
         sceneView.session.run(configuration)
     }
     
-    func addButton() {
-        let button = UIButton(frame: CGRect(x: 250, y: 50, width: 100, height: 50))
-        button.backgroundColor = .lightGray
-        button.alpha = 0.7
-        button.setTitle("Table Up", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        
-        self.view.addSubview(button)
-    }
-    
-    @objc func buttonAction(sender: UIButton!) {
-        changeTable(type: .formal)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -228,7 +202,7 @@ class LiveViewController_1_1: LiveViewController {
     }
 }
 
-extension LiveViewController_1_1: ARSCNViewDelegate {
+extension TableSetting_1_1: ARSCNViewDelegate {
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         alertMessage(title: "Error", message: "There was an error while loading your AR session")

@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 import AVFoundation
 
-class LiveViewController_1_2: LiveViewController {
+class CutleryRules_1_2: LiveViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -40,8 +40,6 @@ class LiveViewController_1_2: LiveViewController {
         //        sceneView.showsStatistics = true
         //        sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
-        
-//        addButton()
         
         sceneView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panGesture(_:))))
     }
@@ -111,19 +109,6 @@ class LiveViewController_1_2: LiveViewController {
             currentAngleY = newAngleY
         }   
     }
-    
-    func addButton() {
-        let button = UIButton(frame: CGRect(x: 250, y: 50, width: 100, height: 50))
-        button.backgroundColor = .lightGray
-        button.alpha = 0.7
-        button.setTitle("Table Up", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        
-        self.view.addSubview(button)
-    }
-    
-    @objc func buttonAction(sender: UIButton!) {
-        setCutleryPosition(status: .badService)    }
     
     func setCutleryPosition(status: CutleryStatus) {
         if table.status != status {
@@ -243,7 +228,7 @@ class LiveViewController_1_2: LiveViewController {
     }
 }
 
-extension LiveViewController_1_2: ARSCNViewDelegate {
+extension CutleryRules_1_2: ARSCNViewDelegate {
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         alertMessage(title: "Error", message: "There was an error while loading your AR session")

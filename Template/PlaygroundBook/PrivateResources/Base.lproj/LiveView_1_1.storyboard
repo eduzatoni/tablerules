@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Live View Controller11-->
+        <!--Table Setting11-->
         <scene sceneID="uz7-3P-Qkr">
             <objects>
-                <viewController id="gv9-uE-JPc" customClass="LiveViewController_1_1" customModule="Book_Sources" sceneMemberID="viewController">
+                <viewController id="gv9-uE-JPc" customClass="TableSetting_1_1" customModule="Book_Sources" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="x5c-Nv-wbc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
